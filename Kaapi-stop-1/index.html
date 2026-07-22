@@ -1,0 +1,1285 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaapistop</title>
+<link rel="icon" type="image/png" href="../assets/kaapiStoplogo.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    corePlugins: { preflight: false },
+    theme: {
+      extend: {
+        colors: {
+          primary: '#2C1208',
+          'on-primary': '#F5EDE0',
+          'secondary-fixed': '#A0623A',
+        },
+        maxWidth: {
+          'container-max-width': '1200px'
+        }
+      }
+    }
+  }
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+:root{
+  --cream:#F5EDE0;
+  --cream2:#EDE0CE;
+  --brown:#3D1C08;
+  --brown-mid:#6B3520;
+  --brown-light:#A0623A;
+  --warm-white:#FBF6F0;
+  --text-main:#2C1208;
+  --text-muted:#7A5540;
+}
+
+body{
+  background:var(--cream);
+  color:var(--text-main);
+  font-family:'Georgia',serif;
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.4rem 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  mix-blend-mode:multiply;
+  transition: mix-blend-mode 0.3s ease, padding 0.3s ease;
+}
+.nav-logo{
+  font-size:1.1rem;font-weight:700;letter-spacing:3px;
+  color:var(--brown);text-decoration:none;text-transform:uppercase;
+  display: flex; align-items: center;
+}
+.logo-main {
+  height: 80px; 
+  transition: height 0.3s ease, filter 0.3s ease;
+}
+.nav-cta{
+  background:var(--brown);color:var(--cream);
+  padding:.6rem 1.4rem;border-radius:2px;
+  font-family:'Arial',sans-serif;font-size:.75rem;letter-spacing:2px;
+  text-transform:uppercase;text-decoration:none;
+  transition:all .2s;
+}
+.nav-cta:hover{background:var(--brown-mid);transform: translateY(-2px);}
+
+nav.nav-light {
+  mix-blend-mode: normal;
+}
+nav.nav-light .nav-logo img {
+  filter: brightness(0) invert(1);
+}
+nav.nav-light .nav-cta {
+  background: #ffffff;
+  color: var(--brown);
+}
+nav.nav-light .nav-cta:hover {
+  background: var(--cream);
+}
+
+/* ── FLOATING CUP & SHADOW ── */
+#floating-cup{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index:9999;
+  pointer-events:none;
+}
+.cup-floater {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.cup-fill-wrap {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+.cup-fill-wrap img {
+  display: block;
+  height: 200px;
+  width: auto;
+}
+.cup-empty {
+  position: relative;
+  z-index: 2;
+}
+.cup-filled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  clip-path: inset(100% 0 0% 0);
+}
+#cup-shadow {
+  position: absolute;
+  bottom: -20px; 
+  width: 120px;
+  height: 18px;
+  background: radial-gradient(ellipse at center, rgba(61, 28, 8, 0.5) 0%, rgba(61, 28, 8, 0) 70%);
+  border-radius: 50%;
+  opacity: 0; 
+  transform: scale(0.5);
+  z-index: 1;
+}
+
+.is-floating {
+  animation: gentleFloat 2.5s ease-in-out infinite alternate;
+}
+@keyframes gentleFloat {
+  0% { transform: translateY(-15px); }
+  100% { transform: translateY(15px); }
+}
+
+/* ── SECTIONS BASE ── */
+section{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  padding:6rem 5vw;
+}
+
+/* ── HERO ── */
+#hero{
+  background:var(--warm-white);
+  padding-top: 7rem;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3vw;
+  max-width: 1350px;
+  width: 100%;
+  align-items: center;
+  position: relative;
+  z-index: 20;
+}
+.hero-content-left {
+  text-align: left;
+}
+.hero-eyebrow{
+  font-family:'Arial',sans-serif;font-size:.7rem;letter-spacing:4px;
+  text-transform:uppercase;color:var(--brown-light);
+  margin-bottom:1.5rem;
+}
+.hero-h1{
+  font-size:clamp(2.5rem,7vw,5.5rem);
+  font-weight:400;line-height:1.05;
+  color:var(--brown);
+  margin-bottom:1.5rem;
+}
+.hero-h1 em{font-style:italic;color:var(--brown-light);}
+.hero-sub{
+  font-family:'Arial',sans-serif;font-size:clamp(0.9rem, 2vw, 1.05rem);
+  color:var(--text-muted);
+  max-width:480px;
+  margin:0 0 2.5rem 0;
+  line-height:1.7;
+}
+.hero-btn{
+  display:inline-block;
+  background:var(--brown);color:var(--cream);
+  padding:1rem 2.5rem;border-radius:2px;
+  font-family:'Arial',sans-serif;font-size:.8rem;letter-spacing:2px;
+  text-transform:uppercase;text-decoration:none;
+  border:none;cursor:pointer;
+  transition:all .25s;
+}
+.hero-btn:hover{background:var(--brown-mid);transform:translateY(-2px);}
+
+.hero-image-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.hero-image-right img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  filter: drop-shadow(0 25px 35px rgba(61,28,8,0.15));
+  position: relative;
+  z-index: 5;
+}
+
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  font-family:'Arial',sans-serif;font-size:.65rem;letter-spacing:2px;
+  text-transform:uppercase;color:var(--brown-light);opacity:.6;
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+}
+.scroll-line{
+  width:1px;height:40px;background:var(--brown-light);opacity:.4;
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{transform:scaleY(1);opacity:.4}50%{transform:scaleY(1.4);opacity:.8}}
+
+.parallax-bg{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.p-circle{
+  position:absolute;border-radius:50%;
+  background:var(--cream2);opacity:.5;
+}
+
+/* ── COST SECTION ── */
+#cost{
+  background:var(--brown);
+}
+#cost .label-tag{color:rgba(245,237,224,.5);}
+#cost .big-h{color:var(--cream);}
+#cost .body-p{color:rgba(245,237,224,.65);}
+.label-tag {
+  font-family: 'Arial', sans-serif; font-size: .65rem; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--brown-light); margin-bottom: 1rem;
+  display: block;
+}
+.big-h {
+  font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 400;
+  color: var(--brown); line-height: 1.15; margin-bottom: 1.25rem;
+}
+.body-p {
+  font-family: 'Arial', sans-serif; font-size: clamp(0.9rem, 2vw, 0.95rem);
+  color: var(--text-muted); line-height: 1.8;
+}
+
+.cost-flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+.content-block {
+  flex: 1;
+  max-width: 480px;
+}
+.cost-center-space {
+  flex: 0 0 250px; 
+  position: relative;
+}
+.equals-and-price {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+}
+.equals-sign {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  color: rgba(245,237,224,.8);
+  line-height: 1;
+}
+.price-display {
+  text-align: left;
+}
+.price-num {
+  font-size: clamp(4rem,14vw,9rem);font-weight:700;
+  color:var(--cream);line-height:1;
+  opacity:.95;
+}
+.price-label{
+  font-family:'Arial',sans-serif;font-size:.85rem;letter-spacing:3px;
+  text-transform:uppercase;color:rgba(245,237,224,.5);
+  margin-top:.5rem;
+}
+.cost-pills{
+  display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem;
+}
+.pill{
+  padding:.5rem 1rem;border-radius:30px;
+  font-family:'Arial',sans-serif;font-size:.78rem;
+  border:1px solid rgba(245,237,224,.2);
+  color:rgba(245,237,224,.7);
+}
+
+/* ── FEATURES ── */
+#features {
+  background: var(--cream);
+  flex-direction: column;
+}
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1100px;
+  width: 100%;
+  margin: 4rem auto 0;
+}
+.feat-cell {
+  background: #EAE0D3; 
+  padding: 3.5rem 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.4s ease;
+  border-radius: 4px;
+}
+.feat-cell:hover { background: #C7A588; }
+.feat-icon-wrap {
+  width: 80px; height: 80px;
+  margin-bottom: 1.5rem;
+  border-radius: 50%;
+  background: rgba(61, 28, 8, 0.04);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s ease;
+}
+.feat-cell:hover .feat-icon-wrap { transform: scale(1.05); }
+.feat-icon-wrap svg { width: 36px; height: 36px; stroke: var(--brown); stroke-width: 1.5; fill: none; }
+.feat-cell h4 { font-size: 1.1rem; font-weight: 600; color: var(--brown); margin-bottom: .75rem; }
+.feat-cell p { font-family: 'Arial', sans-serif; font-size: 0.85rem; color: var(--brown); line-height: 1.6; opacity: 0.85; }
+
+/* ── OWNERSHIP / PRICING ── */
+#ownership {
+  background: var(--warm-white);
+  flex-direction: column;
+}
+.own-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1000px;
+  width: 100%;
+  margin-top: 3.5rem;
+}
+.own-card {
+  padding: 3rem 2.5rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  max-width: 470px;
+  gap: 1.5rem;
+}
+.own-card.buy  { background: var(--brown); }
+.own-card.rent { background: var(--cream); border: 1px solid rgba(61,28,8,0.12); }
+.own-card-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.own-card.buy  .own-card-icon { background: rgba(245,237,224,.1); }
+.own-card.rent .own-card-icon { background: rgba(61,28,8,.05); }
+.own-card-icon svg { width: 28px; height: 28px; fill: none; stroke-width: 1.5; }
+.own-card.buy  .own-card-icon svg { stroke: var(--cream); }
+.own-card.rent .own-card-icon svg { stroke: var(--brown); }
+.own-tag {
+  font-family: 'Arial', sans-serif; font-size: .6rem; letter-spacing: 3px;
+  text-transform: uppercase; padding: .3rem .9rem; border-radius: 20px;
+  align-self: flex-start; display: inline-block;
+}
+.own-card.buy  .own-tag { background: rgba(245,237,224,.12); color: rgba(245,237,224,.65); }
+.own-card.rent .own-tag { background: rgba(160,98,58,.12); color: var(--brown-light); }
+.own-card-title {
+  font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; line-height: 1;
+}
+.own-card.buy  .own-card-title { color: var(--cream); }
+.own-card.rent .own-card-title { color: var(--brown); }
+.own-card-desc {
+  font-family: 'Arial', sans-serif; font-size: .9rem; line-height: 1.75;
+}
+.own-card.buy  .own-card-desc { color: rgba(245,237,224,.6); }
+.own-card.rent .own-card-desc { color: var(--text-muted); }
+.own-perks {
+  list-style: none; padding: 0; margin: 0; flex: 1;
+  display: flex; flex-direction: column; gap: .8rem;
+}
+.own-perks li {
+  font-family: 'Arial', sans-serif; font-size: .85rem;
+  display: flex; align-items: flex-start; gap: .65rem; line-height: 1.5;
+}
+.own-perks li::before { content: '—'; flex-shrink: 0; margin-top: 1px; color: var(--brown-light); }
+.own-card.buy  .own-perks li { color: rgba(245,237,224,.72); }
+.own-card.rent .own-perks li { color: var(--text-muted); }
+.own-cta {
+  display: inline-block; text-align: center;
+  padding: .9rem 2rem; border-radius: 2px; margin-top: .5rem;
+  font-family: 'Arial', sans-serif; font-size: .75rem; letter-spacing: 2px;
+  text-transform: uppercase; border: none; cursor: pointer;
+  transition: all .25s; text-decoration: none;
+}
+.own-card.buy  .own-cta { background: var(--cream); color: var(--brown); }
+.own-card.buy  .own-cta:hover { background: var(--cream2); transform: translateY(-2px); }
+.own-card.rent .own-cta { background: var(--brown); color: var(--cream); }
+.own-card.rent .own-cta:hover { background: var(--brown-mid); transform: translateY(-2px); }
+
+/* ── TESTIMONIALS ── */
+#testimonials{
+  background:var(--cream);
+  flex-direction:column;
+}
+.tcard-wrap{
+  display:flex;gap:1.5rem;overflow-x:auto;
+  max-width:900px;width:100%;padding-bottom:1.5rem;
+  scrollbar-width:none;scroll-snap-type:x mandatory;
+  margin-top: 2rem;
+}
+.tcard-wrap::-webkit-scrollbar{display:none;}
+.tcard{
+  min-width:300px;scroll-snap-align:start;
+  padding:1.5rem;border:1px solid rgba(61,28,8,.12);
+  border-radius:3px;background:var(--warm-white);
+}
+.tcard video {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover;
+  border-radius: 4px; margin-bottom: 1.25rem;
+  background: rgba(61,28,8,.08);
+}
+.tcard-author{font-family:'Arial',sans-serif;font-size:.85rem;color:var(--text-muted);line-height: 1.5;}
+.tcard-author strong{display:block;color:var(--brown);font-size:1rem;margin-bottom:.3rem;}
+.t-nav{display:flex;gap:.75rem;margin-top:1rem;}
+.t-btn{
+  width:44px;height:44px;border:1px solid rgba(61,28,8,.2);
+  background:none;border-radius:2px;cursor:pointer;
+  color:var(--brown);font-size:1.2rem;transition:all .2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.t-btn:hover{background:var(--brown);color:var(--cream);}
+
+/* ── FINAL CUP SECTION ── */
+#final{
+  background:var(--brown);
+  height: 100vh; 
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;
+  padding: 0;
+}
+.decor-arrows {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1; 
+  overflow: hidden; max-width: 1200px; margin: 0 auto;
+}
+.d-arrow { position: absolute; stroke: var(--cream); fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+
+.da-1 { top: 25%; left: 15%; width: 140px; height: 140px; }
+.da-2 { top: 25%; right: 15%; width: 140px; height: 140px; stroke-dasharray: 12 12; }
+.da-3 { top: 50%; left: 8%; width: 140px; height: 70px; stroke-dasharray: 12 12; transform: translateY(-50%); }
+.da-4 { top: 50%; right: 8%; width: 140px; height: 70px; transform: translateY(-50%); }
+.da-5 { bottom: 25%; left: 15%; width: 140px; height: 140px; }
+.da-6 { bottom: 25%; right: 15%; width: 140px; height: 140px; }
+
+.final-content{
+  position:relative;  display:flex; flex-direction:column;
+  align-items:center; justify-content:space-between; 
+  width: 100%; height: 100%; 
+  padding: 15vh 5vw; 
+}
+.cup-spacer { flex: 1; width: 100%; min-height: 250px; }
+.final-h{
+  font-size:clamp(2.2rem,6vw,4.2rem); font-weight:400;
+  color:var(--cream); line-height:1.1; margin:0; 
+  position: relative; z-index: 10;
+}
+.final-btn{
+  background:var(--cream);color:var(--brown);
+  padding:1rem 2.5rem;border-radius:2px;
+  font-family:'Arial',sans-serif;font-size:.8rem;letter-spacing:2px;
+  text-transform:uppercase;border:none;cursor:pointer;
+  transition:all .3s; margin-bottom: 2rem;
+  position: relative; z-index: 10;
+}
+.final-btn:hover{background:var(--cream2);transform:translateY(-2px);}
+
+/* ── MODAL ── */
+.modal-bg{
+  display:none;position:fixed;inset:0;z-index:200;
+  background:rgba(45,20,8,.7);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:1.5rem;
+}
+.modal-bg.open{display:flex;}
+.modal-box{
+  background:var(--warm-white);border-radius:3px;
+  padding:2.5rem 2rem;max-width:420px;width:100%;
+  position:relative; animation:mIn .3s ease;
+}
+@keyframes mIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal-close{
+  position:absolute;top:1rem;right:1rem;
+  background:none;border:none;cursor:pointer;
+  font-size:1.5rem;color:var(--text-muted);
+}
+.modal-box h3{font-size:1.5rem;color:var(--brown);margin-bottom:.4rem;}
+.modal-box p{font-family:'Arial',sans-serif;font-size:.85rem;color:var(--text-muted);margin-bottom:1.5rem;line-height:1.6;}
+.m-field{margin-bottom:1rem;}
+.m-field label{display:block;font-family:'Arial',sans-serif;font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:.4rem;}
+.m-field input{
+  width:100%;padding:.75rem 1rem;
+  border:1px solid rgba(61,28,8,.15);border-radius:2px;
+  background:var(--cream);color:var(--text-main);
+  font-family:'Arial',sans-serif;font-size:.9rem;
+  outline:none;transition:border-color .2s;
+}
+.m-field input:focus{border-color:var(--brown);}
+.m-btns{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.5rem;justify-content: center;align-items: center;}
+.m-btn-p, .m-btn-s {
+  border:none;padding:.85rem;border-radius:2px;cursor:pointer;
+  font-family:'Arial',sans-serif;font-size:.75rem;letter-spacing:1px;text-transform:uppercase;
+  transition:all .2s; text-align: center;
+}
+.m-btn-p{background:var(--brown);color:var(--cream);}
+.m-btn-p:hover{background:var(--brown-mid);}
+.m-btn-s{background:none;color:var(--brown);border:1px solid rgba(61,28,8,.2);}
+.m-btn-s:hover{border-color:var(--brown);background:rgba(61,28,8,.04);}
+.m-success{display:none;text-align:center;padding:1.5rem 0;}
+.m-success .s-icon{font-size:2.5rem;display:block;margin-bottom:1rem;}
+.m-success h4{color:var(--brown);font-size:1.2rem;margin-bottom:.5rem;}
+.m-success p{font-family:'Arial',sans-serif;font-size:.85rem;color:var(--text-muted);line-height:1.6;}
+
+/* Footer Defaults Reset */
+footer a { color: inherit; text-decoration: none; }
+footer ul { list-style: none; padding: 0; margin: 0; }
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.on{opacity:1;transform:translateY(0);}
+.rd1{transition-delay:.1s;}
+.rd2{transition-delay:.2s;}
+.rd3{transition-delay:.3s;}
+
+/* ── RESPONSIVE SPECIFICS ── */
+@media(max-width:1100px){
+  .feat-grid{grid-template-columns:repeat(2, 1fr);}
+}
+
+@media(max-width:900px){
+  .da-3, .da-4 { display: none; } 
+  .da-1 { top: 30%; left: 5%; width: 90px; height: 90px; }
+  .da-2 { top: 30%; right: 5%; width: 90px; height: 90px; }
+  .da-5 { bottom: 30%; left: 10%; width: 90px; height: 90px; }
+  .da-6 { bottom: 30%; right: 10%; width: 90px; height: 90px; }
+}
+
+/* ── CONSOLIDATED MOBILE FIXES ── */
+@media(max-width:768px){
+  nav { padding: 1rem 5vw; }
+  .logo-main { height: 70px; } 
+  
+  #hero { padding-top: 8rem; padding-bottom: 4rem; display: flex; flex-direction: column;}
+  .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+  .hero-content-left { text-align: center; }
+  .hero-h1 { text-align: center !important; }
+  .hero-sub { text-align: center !important; margin: 0 auto 1.5rem auto !important; }
+  
+  section { padding: 4.5rem 5vw; }
+  
+  #testimonials { min-height: fit-content; }
+
+  .final-content { padding: 22vh 5vw 15vh; }
+  .final-h { font-size: clamp(2.2rem, 9vw, 3rem); }
+
+  .cost-flex-container { flex-direction: column; text-align: center; gap: 1rem; }
+  .cost-center-space { height: 260px; flex: none; width: 100%; position: relative; } 
+  .equals-and-price { justify-content: center; flex-direction: column; gap: 0.5rem; }
+  .equals-sign { transform: rotate(90deg); margin: 0.5rem 0; }
+  .price-display { text-align: center; }
+  .cost-pills { justify-content: center; }
+  
+  .feat-grid { gap: 20px; }
+  .m-btns { grid-template-columns: 1fr; }
+  .own-grid { grid-template-columns: 1fr; }
+  .own-card { padding: 2.5rem 1.75rem; }
+}
+
+@media(max-width:550px){
+  .feat-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
+  .feat-cell { padding: 1.5rem 1rem 1.25rem; }
+  .feat-icon-wrap { width: 50px; height: 50px; margin-bottom: 1rem; }
+  .feat-icon-wrap svg { width: 24px; height: 24px; }
+  .feat-cell h4 { font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .feat-cell p { font-size: 0.75rem; line-height: 1.4; }
+  .tcard{min-width: 85vw;}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo"><img class="logo-main" src="../assets/kaapiStoplogo.png" alt="Kaapistop Logo"></a>
+  <a href="#final" class="nav-cta" onclick="openModal();return false;">Book a Demo</a>
+</nav>
+
+<section id="hero">
+  <div class="parallax-bg" id="pbg-hero">
+    <div class="p-circle" style="width:500px;height:500px;top:-100px;right:-120px;"></div>
+    <div class="p-circle" style="width:200px;height:200px;bottom:80px;left:8%;opacity:.3;"></div>
+  </div>
+  
+  <div class="hero-grid">
+    <div class="hero-content-left">
+      <p class="hero-eyebrow reveal">Smart Coffee Vending</p>
+      <h1 class="hero-h1 reveal rd1">Filter Coffee.<br><em>Automated.</em></h1>
+      <p class="hero-sub reveal rd2">Experience the perfect blend of tradition and technology. Our smart vending machines deliver authentic South Indian filter coffee with zero human error, designed for high-volume commercial spaces.</p>
+      <button class="hero-btn reveal rd3" onclick="openModal()">Book a Demo</button>
+    </div>
+    
+    <div class="hero-image-right reveal rd3" style="position: relative;">
+      <img src="../assets/Kaapi-Stop-machine 4.png" alt="Kaapistop Coffee Vending Machine">
+
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<section id="cost">
+  <div class="parallax-bg" id="pbg-cost">
+    <div class="p-circle" style="width:400px;height:400px;top:-80px;left:-80px;background:rgba(245,237,224,.05);opacity:1;"></div>
+  </div>
+  <div class="cost-flex-container" style="position:relative;z-index:2;">
+    <div class="content-block">
+      <span class="label-tag reveal">Cost Per Cup</span>
+      <h2 class="big-h reveal rd1" style="color:var(--cream);">Premium coffee.<br>Minimal cost.</h2>
+      <p class="body-p reveal rd2">Automated extraction wastes nothing. One machine replaces the cost of multiple trained baristas.</p>
+      <div class="cost-pills reveal rd2">
+        <span class="pill">No wastage</span>
+        <span class="pill">Less labour</span>
+        <span class="pill">Consistent output</span>
+        <span class="pill">Lower overheads</span>
+      </div>
+    </div>
+    
+    <div class="cost-center-space">
+      <div id="floating-cup">
+        <div id="cup-scroll-shift"> 
+          <div class="cup-floater is-floating">
+            <div class="cup-fill-wrap z-10">
+              <img class="cup-empty z-10" src="../assets/Kaapistopdabra.png" alt="Cup Empty">
+              <img class="cup-filled z-10" id="cup-filled-img" src="../assets/KaapiStop3.png" alt="Cup Filled">
+            </div>
+            <div id="cup-shadow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="equals-and-price">
+      <div class="equals-sign">=</div>
+      <div class="price-display">
+        <div class="price-num">₹8</div>
+        <div class="price-label">Per cup, always</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div style="max-width:1300px;width:100%;position:relative;text-align:center;">
+    <span class="label-tag" style="display:block;">What You Get</span>
+    <h2 class="big-h">Built for commercial kitchens.</h2>
+    
+    <div class="feat-grid" id="feat-grid">
+      <div class="feat-cell">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 3v18M5 10l-3 4h6l-3-4zM19 10l-3 4h6l-3-4zM2 14c0 1.66 1.34 3 3 3s3-1.34 3-3M16 14c0 1.66 1.34 3 3 3s3-1.34 3-3M6 7h12"></path></svg>
+        </div>
+        <h4>Consistent thickness</h4>
+        <p>Precision extraction, calibrated to the millilitre.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        </div>
+        <h4>Fast brewing</h4>
+        <p>Handle peak-hour demand without slowing down.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+        </div>
+        <h4>Zero wastage</h4>
+        <p>Automated dosing means every gram is used.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+        </div>
+        <h4>Easy maintenance</h4>
+        <p>Tool-free cleaning. Minimal downtime.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M2 20h20M4 20V8l4-4 4 4v12M12 20v-8l4-4 4 4v8"></path><circle cx="16" cy="14" r r="2"></circle></svg>
+        </div>
+        <h4>Commercial grade</h4>
+        <p>Runs 300+ cups a day without performance drop.</p>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="4"></circle><path d="M8 4v2M8 10v2M4 8h2M10 8h2"></path><circle cx="16" cy="16" r="4"></circle><path d="M16 12v2M16 18v2M12 16h2M18 16h2"></path></svg>
+        </div>
+        <h4>Multiple beverages</h4>
+        <p>Filter, decoction, strong, mild — one machine.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ownership">
+  <div style="max-width:1100px;width:100%;position:relative;text-align:center;">
+    <span class="label-tag reveal" style="display:block;">Flexible Plans</span>
+    <h2 class="big-h reveal rd1">Own it. Or rent it.</h2>
+    <p class="body-p reveal rd2" style="max-width:520px;margin:0 auto;">Whether you want full ownership or a low-commitment rental, we have a plan built around your business.</p>
+
+    <div class="own-grid">
+      <div class="own-card buy reveal rd1">
+        <div class="own-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <span class="own-tag">One-time purchase</span>
+        <div class="own-card-title">Buy</div>
+        <p class="own-card-desc">A single investment. Full ownership of your machine with no recurring lease costs — ever.</p>
+        <ul class="own-perks">
+          <li>Complete ownership, zero monthly fees</li>
+          <li>Priority service &amp; warranty included</li>
+          <li>Custom branding on the machine</li>
+          <li>Best value for high-volume operations</li>
+        </ul>
+        <button class="own-cta" onclick="openModal()">Get a Quote</button>
+      </div>
+
+      <div class="own-card rent reveal rd2">
+        <div class="own-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <span class="own-tag">Monthly rental</span>
+        <div class="own-card-title">Rent</div>
+        <p class="own-card-desc">Low upfront cost, flexible terms. We handle all servicing so you stay focused on your customers.</p>
+        <ul class="own-perks">
+          <li>Minimal upfront investment</li>
+          <li>Maintenance &amp; servicing included</li>
+          <li>Upgrade or return with 30-day notice</li>
+          <li>Ideal for new or seasonal setups</li>
+        </ul>
+        <button class="own-cta" onclick="openModal()">Start Renting</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div style="max-width:900px;width:100%;position:relative;">
+    <span class="label-tag reveal">From our clients</span>
+    <h2 class="big-h reveal rd1">They switched. They stayed.</h2>
+    <div class="tcard-wrap reveal rd2" id="ttrack">
+      <div class="tcard">
+        <video controls preload="metadata">
+          <source src="../assets/KMCH.webm" type="video/mp4">
+        </video>
+        <div class="tcard-author">
+          <strong>KMCH</strong>
+          High volume continuous brewing for hospital staff and visitors, maintaining quality around the clock.
+        </div>
+      </div>
+      <div class="tcard">
+        <video controls preload="metadata">
+          <source src="../assets/LLOYDS.webm" type="video/mp4">
+        </video>
+        <div class="tcard-author">
+          <strong>LLOYDS</strong>
+          Premium quality output matching our exact brand standards and expectations every single day.
+        </div>
+      </div>
+      <div class="tcard">
+        <video controls preload="metadata">
+          <source src="../assets/Naaval Properties Render.webm" type="video/mp4">
+        </video>
+        <div class="tcard-author">
+          <strong>NAVAL Properties</strong>
+          Reliable automated coffee solution ensuring consistency for our corporate offices and clients.
+        </div>
+      </div>
+      <div class="tcard">
+        <video controls preload="metadata">
+          <source src="../assets/Perumal Silks.webm" type="video/mp4">
+        </video>
+        <div class="tcard-author">
+          <strong>Perumal Silks</strong>
+          Serving authentic, consistent filter coffee to perfectly delight our retail customers seamlessly.
+        </div>
+      </div>
+    </div>
+    <div class="t-nav reveal rd3">
+      <button class="t-btn" onclick="document.getElementById('ttrack').scrollBy({left:-320,behavior:'smooth'})">←</button>
+      <button class="t-btn" onclick="document.getElementById('ttrack').scrollBy({left:320,behavior:'smooth'})">→</button>
+    </div>
+  </div>
+</section>
+
+<section id="final">
+  <div class="decor-arrows">
+    <svg class="d-arrow da-1" viewBox="0 0 200 200"><path d="M30,30 Q100,120 170,170" /><polyline points="140,175 170,170 160,140" /></svg>
+    <svg class="d-arrow da-2" viewBox="0 0 200 200"><path d="M170,30 L30,170" /><polyline points="35,140 30,170 60,165" /></svg>
+    <svg class="d-arrow da-3" viewBox="0 0 200 100"><path d="M20,80 Q80,20 170,60" /><polyline points="145,45 170,60 150,80" /></svg>
+    <svg class="d-arrow da-4" viewBox="0 0 200 100"><path d="M170,30 Q180,80 120,80 Q70,80 30,50" /><polyline points="50,30 30,50 40,75" /></svg>
+    <svg class="d-arrow da-5" viewBox="0 0 200 200"><path d="M30,170 Q100,100 170,30" /><polyline points="140,35 170,30 165,60" /></svg>
+    <svg class="d-arrow da-6" viewBox="0 0 200 200"><path d="M170,170 L30,30" /><polyline points="60,35 30,30 35,60" /></svg>
+  </div>
+
+  <div class="final-content">
+    <h2 class="final-h">Your next perfect cup</h2>
+    <div class="cup-spacer"></div>
+    <button class="final-btn" onclick="openModal()">HAVE A CUP OF COFFEE</button>
+  </div>
+</section>
+
+<footer class="bg-primary text-on-primary pt-20 pb-10 px-6 md:px-16 relative z-20">
+  <div class="max-w-container-max-width mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div class="space-y-6">
+              <img src="../assets/kaapiStoplogo.png" alt="Kaapi Stop Logo" class="h-28 w-auto object-contain brightness-0 invert">
+              <p class="font-body-md text-on-primary/70 max-w-xs text-sm leading-relaxed">
+                  Bringing you the finest coffee experience. A proud brand of Naval Foods & Beverages LLP.
+              </p>
+          </div>
+          <div class="space-y-6">
+              <h4 class="font-label-caps text-label-caps text-secondary-fixed">Our Outlets</h4>
+              <div class="space-y-6">
+                  <div>
+                      <h5 class="font-bold text-on-primary text-sm mb-2">Salem</h5>
+                      <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                          <li>Yercaud</li>
+                          <li>Yercaud Adivaram</li>
+                          <li>Five Roads</li>
+                          <li>Shevapet</li>
+                          <li>VIMS</li>
+                      </ul>
+                  </div>
+                  <div>
+                      <h5 class="font-bold text-on-primary text-sm mb-2">Salem - Bangalore Highway</h5>
+                      <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                          <li>Kaveripattinam</li>
+                          <li>Thoppur</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="space-y-6 lg:pt-10">
+              <div class="space-y-6">
+                  <div>
+                      <h5 class="font-bold text-on-primary text-sm mb-2">Coimbatore</h5>
+                      <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                          <li>KMCH</li>
+                      </ul>
+                  </div>
+                  <div>
+                      <h5 class="font-bold text-on-primary text-sm mb-2">Hosur</h5>
+                      <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                          <li>Gunam Hospital</li>
+                      </ul>
+                  </div>
+                  <div>
+                      <h5 class="font-bold text-on-primary text-sm mb-2">Darmapuri</h5>
+                      <ul class="space-y-2 font-body-md text-on-primary/70 text-sm">
+                          <li>EmDen Mess</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="space-y-6">
+              <h4 class="font-label-caps text-label-caps text-secondary-fixed">Contact Us</h4>
+              <div class="space-y-5 font-body-md text-on-primary/70 text-sm">
+                  <div>
+                      <strong class="text-on-primary block mb-1">NAVAL FOODS & BEVERAGES LLP</strong>
+                      <p class="leading-relaxed">
+                          No: 43-45, Sidco Industrial Estate,<br>
+                          Five roads, Narasothipatti,<br>
+                          Salem, Tamil Nadu - 636 004
+                      </p>
+                  </div>
+                  <div class="pt-4 border-t border-on-primary/20">
+                      <strong class="text-on-primary block mb-3">Vending Division Manager</strong>
+                      <div class="space-y-3">
+                          <div class="flex items-center gap-3">
+                              <span class="material-symbols-outlined text-base">mail</span>
+                              <a href="mailto:b2bsales@kaapistop.com" class="hover:text-secondary-fixed transition-colors break-all">b2bsales@kaapistop.com</a>
+                          </div>
+                          <div class="flex items-center gap-3">
+                              <span class="material-symbols-outlined text-base">call</span>
+                              <a href="tel:+918925711299" class="hover:text-secondary-fixed transition-colors">89257 11299</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="pt-8 border-t border-on-primary/10 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+          <p class="font-body-md text-xs text-on-primary/50">© 2024 Naval Foods & Beverages LLP. All rights reserved.</p>
+         
+      </div>
+  </div>
+</footer>
+
+<div class="modal-bg" id="modal-bg" onclick="bgClose(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" aria-label="Close Modal" onclick="closeModal()">✕</button>
+    <div id="m-form">
+      <h3>Let's talk coffee.</h3>
+      <p>Our team will reach out within 24 hours.</p>
+      <div class="m-field"><label>Full name</label><input type="text" id="m-fullname" placeholder="Your name"/></div>
+      <div class="m-field"><label>Business name</label><input type="text" id="m-business" placeholder="Your business"/></div>
+      <div class="m-field"><label>Email</label><input type="email" id="m-email" placeholder="you@business.com"/></div>
+      <div class="m-field"><label>Phone</label><input type="tel" id="m-phone" placeholder="+91 98765 43210"/></div>
+      <div class="m-btns">
+        <button class="m-btn-s" id="submit-btn" onclick="submitForm()">Send inquiry</button>
+      </div>
+    </div>
+    <div class="m-success" id="m-success">
+      <span class="s-icon">☕</span>
+      <h4>We'll be in touch.</h4>
+      <p>Our coffee expert will contact you shortly. Thank you for reaching out.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── PARALLAX ──
+const parallaxBgs = [
+  {el:document.getElementById('pbg-hero'),  speed:0.4},
+  {el:document.getElementById('pbg-cost'),  speed:0.25},
+];
+function doParallax(){
+  const sy = window.scrollY;
+  parallaxBgs.forEach(({el,speed})=>{
+    if(!el) return;
+    el.style.transform = `translateY(${sy*speed}px)`;
+  });
+}
+window.addEventListener('scroll', doParallax, {passive:true});
+
+// ── GSAP ANIMATIONS ──
+gsap.registerPlugin(ScrollTrigger);
+
+const cup = document.getElementById('floating-cup');
+const shadow = document.getElementById('cup-shadow');
+
+// Nav specific interactions
+ScrollTrigger.create({ trigger: "#cost", start: "top 15%", end: "bottom 15%", toggleClass: { targets: "nav", className: "nav-light" }});
+ScrollTrigger.create({ trigger: "#final", start: "top 15%", end: "bottom top", toggleClass: { targets: "nav", className: "nav-light" }});
+
+// Feature grid animations
+gsap.fromTo("#features .label-tag, #features .big-h", 
+  { opacity: 0, y: -40 },
+  { scrollTrigger: { trigger: "#features", start: "top 80%", end: "bottom 20%", toggleActions: "play reverse play reverse" }, opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+);
+gsap.fromTo("#features .feat-grid", 
+  { opacity: 0, y: -50 },
+  { scrollTrigger: { trigger: "#features", start: "top 60%", end: "bottom 10%", toggleActions: "play reverse play reverse" }, opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+);
+
+// FINAL SECTION CONVERGING ANIMATION
+const finalTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#final",
+    start: "top 40%",
+    toggleActions: "play none none reverse"
+  }
+});
+
+finalTl.fromTo(".final-h",
+  { y: -150, opacity: 0 },
+  { y: 0, opacity: 1, duration: 1, ease: "back.out(1.2)" },
+  0
+);
+
+finalTl.fromTo(".final-btn",
+  { y: 150, opacity: 0 },
+  { y: 0, opacity: 1, duration: 1, ease: "back.out(1.2)" },
+  0
+);
+
+const arrowOffsets = [
+  { x: -150, y: -150 }, 
+  { x: 150, y: -150 },  
+  { x: -150, y: 0 },    
+  { x: 150, y: 0 },     
+  { x: -150, y: 150 },  
+  { x: 150, y: 150 }    
+];
+
+document.querySelectorAll(".d-arrow").forEach((arrow, i) => {
+  finalTl.fromTo(arrow,
+    { opacity: 0, x: arrowOffsets[i].x, y: arrowOffsets[i].y, scale: 0.5 },
+    { opacity: 0.85, x: 0, y: 0, scale: 1, duration: 0.8, ease: "power3.out" },
+    0.2 + (i * 0.1) 
+  );
+});
+
+let mm = gsap.matchMedia();
+
+// ── RESPONSIVE MAIN SCROLL ANIMATIONS ──
+mm.add("(min-width: 769px)", () => {
+  
+  // Setup initial scale
+  gsap.set(cup, { scale: 1.6, rotation: 0 });
+  gsap.set(shadow, { opacity: 0.9 });
+
+  ScrollTrigger.create({
+    trigger: "#cost",
+    start: "top 20%",
+    end: "+=50000", // Fixes overscroll unpinning behavior
+    pin: "#floating-cup",
+    pinSpacing: false
+  });
+
+  // Coffee fill starts filling at top 20%
+  gsap.fromTo("#cup-filled-img",
+    { clipPath: "inset(100% 0 0% 0)" },
+    { scrollTrigger: { trigger: "#cost", start: "top 20%", endTrigger: "#final", end: "center center", scrub: 1.2 }, clipPath: "inset(0% 0 0% 0)", ease: "none" }
+  );
+
+  // Cost text animations
+  gsap.fromTo("#cost .cost-flex-container", { maxWidth: 850, gap: "0rem" }, { scrollTrigger: { trigger: "#cost", start: "top 80%", end: "top 30%", scrub: 1.2 }, maxWidth: 1100, gap: "2rem", immediateRender: false });
+  gsap.fromTo("#cost .content-block", { x: 150, opacity: 0 }, { scrollTrigger: { trigger: "#cost", start: "top 80%", end: "top 30%", scrub: 1.2 }, x: 0, opacity: 1, immediateRender: false });
+  gsap.fromTo("#cost .price-display", { x: -150, opacity: 0 }, { scrollTrigger: { trigger: "#cost", start: "top 80%", end: "top 30%", scrub: 1.2 }, x: 0, opacity: 1, immediateRender: false });
+  gsap.fromTo("#cost .equals-sign", { opacity: 0, scale: 0.5 }, { scrollTrigger: { trigger: "#cost", start: "top 60%", end: "top 30%", scrub: 1.2 }, opacity: 1, scale: 1, immediateRender: false });
+
+  // 3. To Features (Animates from pinned position)
+  gsap.to(cup, {
+    scrollTrigger: { trigger: "#features", start: "top 70%", end: "top 20%", scrub: 1.2 },
+    left: "80vw", top: "40%", xPercent: -50, yPercent: -50, scale: 1, rotation: 330, immediateRender: false
+  });
+  
+  gsap.to(shadow, { scrollTrigger: { trigger: "#features", start: "top 70%", end: "top 20%", scrub: true }, opacity: 0, immediateRender: false });
+
+  // 3b. Ownership enter
+  gsap.to(cup, {
+    scrollTrigger: { trigger: "#ownership", start: "top 70%", end: "top 20%", scrub: 1.2 },
+    left: () => { const b = document.querySelector('.own-card.buy'), r = document.querySelector('.own-card.rent'); if (!b || !r) return '50%'; const br = b.getBoundingClientRect(), rr = r.getBoundingClientRect(); return ((br.right - 20 + rr.left + 90) / 2) + 'px'; },
+    top: "50%", xPercent: -50, yPercent: -50, scale: 0.7, rotation: 360, immediateRender: false
+  });
+
+  // Cards Split
+  gsap.fromTo(".own-card.buy", { x: 0, opacity: 1 }, { scrollTrigger: { trigger: "#ownership", start: "top 65%", toggleActions: "play none none reverse" }, x: -20, opacity: 1, duration: 0.4, ease: "power3.out", overwrite: true });
+  gsap.fromTo(".own-card.rent", { x: 0, opacity: 1 }, { scrollTrigger: { trigger: "#ownership", start: "top 65%", toggleActions: "play none none reverse" }, x: 90, opacity: 1, duration: 0.4, ease: "power3.out", overwrite: true });
+
+  // 3c. Ownership exit / Enter Testimonials
+  gsap.to(cup, {
+    scrollTrigger: { trigger: "#testimonials", start: "top 80%", end: "top 30%", scrub: 1.2 },
+    left: "80%", top: "50%", xPercent: -50, yPercent: -50, scale: 1, rotation: 335, immediateRender: false
+  });
+
+  // 4. To Final
+  gsap.to(cup, {
+    scrollTrigger: { trigger: "#final", start: "top 60%", end: "top 10%", scrub: 1.2 },
+    left: "50%", top: "50%", xPercent: -50, yPercent: -50, scale: 1.2, rotation: 360, immediateRender: false
+  });
+
+  // Landing: stop float, settle once when cup arrives in #final 
+  let _cupLanded = false;
+  ScrollTrigger.create({
+    trigger: "#final",
+    start: "top 10%",
+    onEnter: () => {
+      cup.querySelector('.cup-floater')?.classList.remove('is-floating');
+      if (_cupLanded) return;
+      _cupLanded = true;
+      gsap.killTweensOf(cup); // Crucial: Stop timeline scrubbing conflicts
+      gsap.to(cup, { scale: 1.28, duration: 0.3, ease: "sine.out",
+        onComplete: () => gsap.to(cup, { scale: 1.2, duration: 0.85, ease: "elastic.out(1, 0.65)" })
+      });
+    },
+    onLeaveBack: () => {
+      _cupLanded = false;
+      gsap.killTweensOf(cup); // Kill the bounce if they scroll up fast
+      gsap.set(cup, { scale: 1.2 });
+      cup.querySelector('.cup-floater')?.classList.add('is-floating');
+    }
+  });
+});
+
+// ── MOBILE ANIMATIONS ──
+mm.add("(max-width: 768px)", () => {
+  gsap.set(cup, { scale: 1.3, rotation: 0 });
+  gsap.set(shadow, { opacity: 0.9 });
+
+  ScrollTrigger.create({
+    trigger: "#cost",
+    start: "top 20%",
+    end: "+=50000", // Fixes overscroll unpinning behavior
+    pin: "#floating-cup",
+    pinSpacing: false
+  });
+
+  gsap.fromTo("#cup-filled-img",
+    { clipPath: "inset(100% 0 0% 0)" },
+    { scrollTrigger: { trigger: "#cost", start: "top 20%", endTrigger: "#final", end: "center center", scrub: 1 }, clipPath: "inset(0% 0 0% 0)", ease: "none" }
+  );
+
+  // 2. Cost → Features
+  gsap.to(cup, {
+    scrollTrigger: { trigger: "#features", start: "top 70%", end: "top 30%", scrub: 1 },
+    left: "85vw", top: "15%", xPercent: -50, yPercent: -50, scale: 0.5, rotation: 345, immediateRender: false
+  });
+
+  gsap.to(shadow, { scrollTrigger: { trigger: "#features", start: "top 70%", end: "top 30%", scrub: 1 }, opacity: 0, immediateRender: false });
+
+  // 2b. Ownership enter (Mobile)
+  gsap.to(cup, {
+    scrollTrigger: { trigger: "#ownership", start: "top 70%", end: "top 30%", scrub: 1 },
+    left: "50%", top: "30%", xPercent: -50, yPercent: -50, scale: 0.6, rotation: 360, immediateRender: false
+  });
+
+  // 2c. Ownership exit / Enter Testimonials (Mobile)
+  gsap.to(cup, {
+    scrollTrigger: { trigger: "#testimonials", start: "top 70%", end: "top 30%", scrub: 1 },
+    left: "50%", top: "40%", xPercent: -50, yPercent: -50, scale: 0.8, rotation: 335, immediateRender: false
+  });
+
+  // 3. To Final
+  gsap.to(cup, {
+    scrollTrigger: { trigger: "#final", start: "top 70%", end: "top 10%", scrub: 1 },
+    left: "50%", top: "45%", xPercent: -50, yPercent: -50, scale: 1.3, rotation: 360, immediateRender: false
+  });
+
+  // Landing
+  let _cupLandedM = false;
+  ScrollTrigger.create({
+    trigger: "#final",
+    start: "top 10%",
+    onEnter: () => {
+      cup.querySelector('.cup-floater')?.classList.remove('is-floating');
+      if (_cupLandedM) return;
+      _cupLandedM = true;
+      gsap.killTweensOf(cup);
+      gsap.to(cup, { scale: 1.38, duration: 0.3, ease: "sine.out",
+        onComplete: () => gsap.to(cup, { scale: 1.3, duration: 0.85, ease: "elastic.out(1, 0.65)" })
+      });
+    },
+    onLeaveBack: () => {
+      _cupLandedM = false;
+      gsap.killTweensOf(cup);
+      gsap.set(cup, { scale: 1.3 });
+      cup.querySelector('.cup-floater')?.classList.add('is-floating');
+    }
+  });
+});
+
+// ── TABLET: OWNERSHIP CUP POSITION ──
+mm.add("(min-width: 769px) and (max-width: 1100px)", () => {
+  gsap.to(cup, {
+    scrollTrigger: { trigger: "#ownership", start: "top 70%", end: "top 20%", scrub: 1.2 },
+    left: () => { const b = document.querySelector('.own-card.buy'), r = document.querySelector('.own-card.rent'); if (!b || !r) return '50%'; const br = b.getBoundingClientRect(), rr = r.getBoundingClientRect(); return ((br.right - 20 + rr.left + 90) / 2) + 'px'; },
+    top: "50%", xPercent: -50, yPercent: -50, scale: 0.7, rotation: 360, overwrite: true, immediateRender: false
+  });
+});
+
+
+// ── FINAL POSITION LOCK ──
+// Shifts the internal wrapper up smoothly as the footer scrolls into view.
+// Forced fromTo coordinates map strictly to prevent offset-caching glitches.
+gsap.fromTo("#cup-scroll-shift", 
+  { y: 0 },
+  {
+    scrollTrigger: {
+      trigger: "footer",
+      start: "top bottom",
+      end: "bottom bottom",
+      scrub: true,
+      invalidateOnRefresh: true,
+      clamp: true // Strict boundary locking (GSAP 3.12+ required)
+    },
+    y: () => -document.querySelector('footer').offsetHeight,
+    ease: "none"
+  }
+);
+
+// ── SCROLL REVEAL ──
+const revealEls = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });},{threshold:0.12});
+revealEls.forEach(el=>ro.observe(el));
+
+// ── MODAL & FORM SUBMISSION ──
+function openModal(){ document.getElementById('modal-bg').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(){ 
+  document.getElementById('modal-bg').classList.remove('open'); 
+  document.body.style.overflow=''; 
+  setTimeout(()=>{ document.getElementById('m-form').style.display='block'; document.getElementById('m-success').style.display='none'; },400); 
+}
+function bgClose(e){ if(e.target===document.getElementById('modal-bg')) closeModal(); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+function getUrlSources() {
+  const sources = {};
+  new URLSearchParams(window.location.search).forEach((val, key) => {
+    if (key.endsWith('_source')) sources[key] = val.replace(/^"|"$/g, '');
+  });
+  return sources;
+}
+
+function submitForm() {
+  const btn = document.getElementById('submit-btn');
+  const originalText = btn.innerText;
+
+  const payload = {
+    fullName: document.getElementById('m-fullname').value,
+    businessName: document.getElementById('m-business').value,
+    email: document.getElementById('m-email').value,
+    phoneNumber: document.getElementById('m-phone').value,
+    ...getUrlSources()
+  };
+
+  if(!payload.fullName || !payload.email || !payload.phoneNumber) {
+    alert("Please fill in your Name, Email, and Phone Number.");
+    return;
+  }
+
+  btn.innerText = 'Sending...';
+  btn.disabled = true;
+
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyU8RGjHAXFcjsWOEE5zMjg9cDUVVKhrhoSUx0EhHupRe-4Xl9I74udhFj6VHzYMwjN/exec';
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'text/plain'
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(() => {
+    document.getElementById('m-form').style.display = 'none'; 
+    document.getElementById('m-success').style.display = 'block';
+    
+    document.getElementById('m-fullname').value = '';
+    document.getElementById('m-business').value = '';
+    document.getElementById('m-email').value = '';
+    document.getElementById('m-phone').value = '';
+  })
+  .catch(error => {
+    console.error('Submission Error:', error);
+    alert("Something went wrong with the submission. Please try again.");
+  })
+  .finally(() => {
+    btn.innerText = originalText;
+    btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>                                                                                                                    

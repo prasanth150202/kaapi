@@ -1,0 +1,945 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaapiVend by Kaapi Stop – Estate-Fresh Filter Kaapi for Your Workplace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            50:  '#FFF8F0',
+                            100: '#FEF0DC',
+                            200: '#FCD9A8',
+                            300: '#F9B96A',
+                            400: '#F59E0B',
+                            500: '#D97706',
+                            600: '#B45309',
+                            700: '#92400E',
+                            800: '#78350F',
+                            900: '#431407',
+                        }
+                    },
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .hero-bg { background: linear-gradient(135deg, #431407 0%, #78350F 50%, #92400E 100%); }
+        .pulse-dot { animation: pulseDot 2s infinite; }
+        @keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.3)} }
+        .benefit-card,.pricing-card { transition: transform .3s, box-shadow .3s; }
+        .benefit-card:hover,.pricing-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,.1); }
+        .faq-answer { display:grid; grid-template-rows:0fr; transition:grid-template-rows .35s ease; }
+        .faq-answer > div { overflow:hidden; }
+        .faq-item.open .faq-answer { grid-template-rows:1fr; }
+        .faq-chevron { transition:transform .3s; }
+        .faq-item.open .faq-chevron { transform:rotate(180deg); }
+        .counter-grad { background:linear-gradient(135deg,#B45309,#D97706); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
+        .fab { position:fixed; right:22px; z-index:1000; width:54px; height:54px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:22px; color:#fff; cursor:pointer; text-decoration:none; transition:transform .25s; }
+        .fab:hover { transform:scale(1.12); }
+        .fab-wa  { bottom:24px; background:#25D366; box-shadow:0 4px 20px rgba(37,211,102,.5); }
+        .fab-call{ bottom:88px; background:#D97706; box-shadow:0 4px 20px rgba(217,119,6,.45); }
+        @keyframes fabBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+        .fab-wa { animation:fabBounce 2.5s ease-in-out infinite; }
+        input:focus,select:focus,textarea:focus { outline:none; border-color:#B45309 !important; box-shadow:0 0 0 3px rgba(180,83,9,.18) !important; }
+        .star { color:#F59E0B; }
+        .ticker-track { display:flex; animation:ticker 36s linear infinite; }
+        .ticker-track:hover { animation-play-state:paused; }
+        @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+        @media (min-width:640px) {
+            .step-connector { position:relative; }
+            .step-connector::after { content:''; position:absolute; top:32px; left:calc(50% + 40px); width:calc(100% - 80px); height:2px; background:linear-gradient(to right,#D97706,#F59E0B); }
+        }
+        .ann-bar { background:linear-gradient(90deg,#431407,#78350F,#431407); background-size:200%; animation:annSlide 4s linear infinite; }
+        @keyframes annSlide { 0%{background-position:0%} 100%{background-position:200%} }
+        .modal-scroll::-webkit-scrollbar { width:6px; }
+        .modal-scroll::-webkit-scrollbar-track { background:#f1f1f1; border-radius:8px; }
+        .modal-scroll::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:8px; }
+        .modal-scroll::-webkit-scrollbar-thumb:hover { background:#B45309; }
+        .ham-line { display:block; width:22px; height:2px; background:#374151; border-radius:2px; transition:all .3s ease; }
+        #mobile-menu-btn.is-open .ham-line:nth-child(1) { transform:translateY(8px) rotate(45deg); }
+        #mobile-menu-btn.is-open .ham-line:nth-child(2) { opacity:0; transform:scaleX(0); }
+        #mobile-menu-btn.is-open .ham-line:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
+        #mobile-nav { max-height:0; overflow:hidden; transition:max-height .35s cubic-bezier(0,1,0,1); }
+        #mobile-nav.is-open { max-height:500px; transition:max-height .4s ease; }
+        input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:6px; background:#FCD9A8; border-radius:3px; outline:none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:20px; height:20px; background:#B45309; border-radius:50%; cursor:pointer; box-shadow:0 2px 8px rgba(180,83,9,.4); }
+        input[type=range]:focus { box-shadow:none !important; border-color:transparent !important; }
+        @media (max-width:767px) {
+            .fixed-enquire,.fab { display:none !important; }
+            body { padding-bottom:76px; }
+            .faq-item { -webkit-tap-highlight-color:transparent; }
+        }
+    </style>
+</head>
+<body class="antialiased bg-white text-gray-900 overflow-x-hidden">
+
+<div class="ann-bar text-white text-center py-2 px-4 text-xs sm:text-sm font-semibold tracking-wide leading-snug">
+    <span class="pulse-dot inline-block w-2 h-2 bg-green-400 rounded-full mr-2 align-middle"></span>
+    <span class="hidden sm:inline">Limited: Free 7-Day Trial Machine for Qualifying Companies</span>
+    </div>
+
+<nav class="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+        <a href="#"><img src="../assets/kaapiStoplogo.png" alt="Kaapi Stop" class="h-11 object-contain"></a>
+        <div class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-700">
+            <a href="#problem"    class="hover:text-coffee-600 transition">The Problem</a>
+            <a href="#machines"   class="hover:text-coffee-600 transition">Machines</a>
+            <a href="#calculator" class="hover:text-coffee-600 transition">Savings</a>
+            <a href="#clients"    class="hover:text-coffee-600 transition">Clients</a>
+            <a href="#faq"        class="hover:text-coffee-600 transition">FAQ</a>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="javascript:void(0)" onclick="openEnquiryModal()" class="hidden sm:block text-sm font-bold text-coffee-600 hover:text-coffee-800 transition">Get Free Demo or Quote</a>
+            <button id="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle menu"
+                class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-gray-100 transition -mr-1">
+                <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div id="mobile-nav" class="md:hidden bg-white shadow-md border-b border-gray-100">
+    <div class="px-4 py-1">
+        <a href="#problem"    onclick="closeMobileNav()" class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">The Problem <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <a href="#machines"   onclick="closeMobileNav()" class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">Machines <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <a href="#calculator" onclick="closeMobileNav()" class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">Savings Calculator <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <a href="#clients"    onclick="closeMobileNav()" class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">Clients <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <a href="#faq"        onclick="closeMobileNav()" class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">FAQ <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <div class="py-3">
+            <button onclick="openEnquiryModal();closeMobileNav();" class="w-full bg-coffee-600 hover:bg-coffee-700 text-white py-3 rounded-xl font-bold text-sm transition">
+                Get Free Demo or Quote
+            </button>
+        </div>
+    </div>
+</div>
+
+<section class="bg-[#FDFBF7] py-10 sm:py-14 md:py-20 px-4 sm:px-6 md:px-12 relative overflow-hidden">
+    <div class="absolute -top-20 -right-20 w-96 h-96 bg-coffee-200/40 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center w-full relative z-10">
+
+        <div class="space-y-5 sm:space-y-6">
+            <div class="inline-flex items-center gap-2 bg-coffee-100 text-coffee-800 text-xs font-bold px-3 py-1.5 rounded-full">
+                <span class="pulse-dot inline-block w-1.5 h-1.5 bg-coffee-600 rounded-full"></span>
+                KaapiVend — Estate-Fresh Filter Kaapi
+            </div>
+            
+            <!-- Highly Attractive Headline -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#2C1208] leading-tight">
+                Premium Estate Kaapi for
+                <span class="text-[#D97706]"> Just ₹8 a Cup</span>
+            </h1>
+
+            <p class="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed font-medium">
+                Estate-grown South Indian filter kaapi, dispensed fresh — at a fraction of your current beverage cost. 500+ cups a day. One machine. Zero compromise.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 pt-1">
+                <a href="javascript:void(0)" onclick="openEnquiryModal()" class="inline-flex items-center justify-center gap-2 bg-coffee-600 hover:bg-coffee-700 text-white px-6 py-3.5 rounded-xl font-bold transition shadow-lg shadow-coffee-600/30">
+                    Get Free Demo or Quote
+                </a>
+                <a href="#machines" class="inline-flex items-center justify-center gap-2 bg-white border-2 border-coffee-600 text-coffee-700 hover:bg-coffee-50 px-6 py-3.5 rounded-xl font-bold transition">
+                    See Machine Models
+                </a>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-gray-200">
+                <div class="text-center">
+                    <div class="text-2xl sm:text-3xl font-extrabold counter-grad">7</div>
+                    <p class="text-xs text-gray-600 font-medium mt-0.5">Years of operations</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl sm:text-3xl font-extrabold counter-grad">10+</div>
+                    <p class="text-xs text-gray-600 font-medium mt-0.5">Active outlets</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl sm:text-3xl font-extrabold counter-grad">14+</div>
+                    <p class="text-xs text-gray-600 font-medium mt-0.5">Institutional clients</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl sm:text-3xl font-extrabold counter-grad">4.4★</div>
+                    <p class="text-xs text-gray-600 font-medium mt-0.5">Average outlet rating</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-5 sm:p-7 border border-gray-100" id="lead-form">
+            <div class="text-center mb-5">
+                <div class="inline-block bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full mb-3">Free 7-Day Trial for Qualifying Companies</div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 mb-1">Get Free Demo or Quote</h2>
+                <p class="text-xs text-gray-500 font-medium">Specialist calls back within <span class="font-bold text-gray-800">24 hours</span></p>
+            </div>
+            <form onsubmit="handleSubmit(event)" class="space-y-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Your Name *</label>
+                        <input type="text" name="name" placeholder="Ramesh Kumar" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Designation *</label>
+                        <input type="text" name="designation" placeholder="HR Manager" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Company Name *</label>
+                    <input type="text" name="company" placeholder="Acme Industries Pvt. Ltd." required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Phone Number *</label>
+                        <input type="tel" name="phone" placeholder="+91 98XXX XXXXX" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Work Email *</label>
+                        <input type="email" name="email" placeholder="you@company.com" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">No. of Employees *</label>
+                        <select name="employees" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm text-gray-600 bg-white cursor-pointer">
+                            <option value="" disabled selected>Select range</option>
+                            <option>50 – 200</option><option>200 – 500</option><option>500 – 1000</option><option>1000+</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Current Setup *</label>
+                        <select name="setup" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm text-gray-600 bg-white cursor-pointer">
+                            <option value="" disabled selected>Select</option>
+                            <option>Vendor / caterer</option><option>In-house preparation</option><option>Existing vending machine</option><option>No setup yet</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">City *</label>
+                    <input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm">
+                </div>
+                <button type="submit" class="w-full bg-[#B45309] hover:bg-[#92400E] text-white font-bold py-3.5 rounded-md transition flex justify-center items-center gap-2">
+                    Get Free Demo or Quote
+                </button>
+                <p class="text-center text-xs text-gray-400">7 years in operation · 14+ institutions · No spam</p>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<section id="clients" class="bg-white py-10 sm:py-12 px-4 border-y border-gray-100 overflow-hidden">
+    <p class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mb-6">Trusted by Leading Institutions Across India</p>
+    <div class="relative overflow-hidden">
+        <div class="ticker-track whitespace-nowrap" style="width:max-content">
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/KMCH.webp" alt="KMCH" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">KMCH</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/Volvo.png" alt="Volvo" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Volvo</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/tvs.webp" alt="Delphi – TVS" class="h-9 object-contain opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Delphi – TVS</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/Kauvery.png" alt="Kauvery Hospital" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Kauvery Hospital</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/club-mahindra.png" alt="Club Mahindra" class="h-9 object-contain opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Club Mahindra</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/vims.webp" alt="VIMS Hospitals" class="h-9 object-contain opacity-60 hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">VIMS Hospitals</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/gunam.jpg" alt="Gunam Healthcare" class="h-9 object-contain opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Gunam Healthcare</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/Thriveni-Sainik-Mining.png" alt="Thriveni Sainik Mining" class="h-9 object-contain opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Thriveni Sainik Mining</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/mahendra-engineering-college.png" alt="Mahendra Engineering College" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Mahendra Engineering College</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/Kudometrics.jpg" alt="Kudometrics Technologies" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Kudometrics Technologies</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/KMCH.webp" alt="KMCH" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">KMCH</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/Volvo.png" alt="Volvo" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Volvo</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/tvs.webp" alt="Delphi – TVS" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Delphi – TVS</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/Kauvery.png" alt="Kauvery Hospital" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Kauvery Hospital</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/club-mahindra.png" alt="Club Mahindra" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Club Mahindra</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/vims.webp" alt="VIMS Hospitals" class="h-9 object-contain opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">VIMS Hospitals</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/gunam.jpg" alt="Gunam Healthcare" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Gunam Healthcare</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/Thriveni-Sainik-Mining.png" alt="Thriveni Sainik Mining" class="h-9 object-contain opacity-60 hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Thriveni Sainik Mining</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/Mahendra-Engineering-College.png" alt="Mahendra Engineering College" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Mahendra Engineering College</span>
+            </span>
+            <span class="inline-flex flex-col items-center mx-10 gap-1.5 align-middle">
+                <img src="../assets/Kudometrics Technologies.png" alt="Kudometrics Technologies" class="h-9 object-contain  opacity-60  hover:opacity-100 transition" onerror="this.style.display='none'">
+                <span class="text-sm font-bold text-gray-700">Kudometrics Technologies</span>
+            </span>
+        </div>
+    </div>
+</section>
+
+<section id="problem" class="py-12 sm:py-16 md:py-20 px-4 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8 sm:mb-10 md:mb-14">
+            <span class="text-red-600 font-bold text-xs uppercase tracking-widest">The Problem</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2 mb-3">
+                The Real Cost of <span class="text-red-600">Bad Office Beverages</span>
+            </h2>
+            <p class="text-gray-600 max-w-xl mx-auto text-sm sm:text-base">
+                Most companies overpay for inconsistent, unhygienic, vendor-dependent coffee. Here's what it's actually costing you.
+            </p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="bg-white rounded-2xl p-5 sm:p-6 border border-red-100 shadow-sm">
+                <h3 class="font-bold text-gray-900 mb-2">Hidden vendor markups</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Caterers charge ₹25–₹50 per cup — whether your employees drink it or not. Wastage and idle billing add up to lakhs annually.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 sm:p-6 border border-red-100 shadow-sm">
+                <h3 class="font-bold text-gray-900 mb-2">Taste varies every day</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Manual preparation depends on who made it today. Employees compare each cup — and complain when it's off.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 sm:p-6 border border-red-100 shadow-sm">
+                <h3 class="font-bold text-gray-900 mb-2">Hygiene blind spots</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Chai wallahs and contract staff bring uncontrolled hygiene risks — a growing concern for hospitals, labs, and ISO-certified facilities.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 sm:p-6 border border-red-100 shadow-sm">
+                <h3 class="font-bold text-gray-900 mb-2">No consumption data</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">You have no visibility into cups served, cost per cup, or peak hours. Every month is a guess on the vendor invoice.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-12 sm:py-16 md:py-20 px-4 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8 sm:mb-10 md:mb-14">
+            <span class="text-coffee-600 font-bold text-xs uppercase tracking-widest">The Solution</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2 mb-3">
+                Meet KaapiVend — Fresh Filter Kaapi, <span class="text-coffee-600">On Demand</span>
+            </h2>
+            <p class="text-gray-600 max-w-xl mx-auto text-sm sm:text-base">One machine. Fresh-ground estate beans. Up to 10 beverage options. Consistent cup after cup — with no vendor dependency.</p>
+        </div>
+        <div class="relative rounded-2xl overflow-hidden mb-10 mx-auto shadow-lg" style="max-width:180px">
+            <video id="demo-video" src="../assets/VM.webm" autoplay muted loop playsinline class="w-full h-auto block"></video>
+            <button onclick="toggleVideoMute()" id="mute-btn" title="Toggle sound"
+                class="absolute top-2 right-2 w-7 h-7 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 text-white transition">
+                <i id="mute-icon" class="fa-solid fa-volume-xmark text-xs"></i>
+            </button>
+        </div>
+        <p class="text-center text-xs font-bold uppercase tracking-widest text-gray-500 mb-5">Beverages Available</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Filter Kaapi</div><div class="text-xs text-gray-500 mt-0.5">Strong / Light / Black</div></div>
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Brewed Tea</div><div class="text-xs text-gray-500 mt-0.5">Strong / Light / Black</div></div>
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Cappuccino</div><div class="text-xs text-gray-500 mt-0.5">KS 300 only</div></div>
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Latte</div><div class="text-xs text-gray-500 mt-0.5">KS 300 only</div></div>
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Espresso</div><div class="text-xs text-gray-500 mt-0.5">KS 300 only</div></div>
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Ginger Tea</div><div class="text-xs text-gray-500 mt-0.5">Specialty mix</div></div>
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Elaichi Tea</div><div class="text-xs text-gray-500 mt-0.5">Specialty mix</div></div>
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Sukku Kaapi</div><div class="text-xs text-gray-500 mt-0.5">Traditional blend</div></div>
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Badam / Rose</div><div class="text-xs text-gray-500 mt-0.5">Specialty mixes</div></div>
+            <div class="bg-coffee-50 rounded-xl p-4 text-center border border-coffee-100"><div class="font-bold text-sm text-gray-900">Hot Milk</div><div class="text-xs text-gray-500 mt-0.5">All models</div></div>
+        </div>
+    </div>
+</section>
+
+<section id="machines" class="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-[#FDFBF7]">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8 sm:mb-12 md:mb-16">
+            <span class="font-bold text-xs tracking-widest text-coffee-600 uppercase mb-3 block">Machine Lineup</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#2C1208] mb-3">Choose Your Capacity</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base font-medium">Three models built for different volumes — from mid-size offices to high-footfall hospital campuses.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 lg:p-8 hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col">
+                <div class="h-40 sm:h-48 md:h-56 flex items-center justify-center mb-5 bg-[#FDFBF7] rounded-xl p-4">
+                    <img src="../assets/Ks100-removebg-preview.png" alt="KS 100" class="max-h-full object-contain drop-shadow-md">
+                </div>
+                <div class="text-center mb-5">
+                    <h3 class="text-2xl font-extrabold text-[#2C1208] mb-1">KS 100</h3>
+                    <p class="text-xs text-gray-500 font-medium mb-3">For offices up to 200 people</p>
+                    <span class="inline-block bg-[#2C1208] text-[#F5EDE0] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">500 Cups / Day</span>
+                </div>
+                <div class="space-y-2.5 flex-1 text-sm">
+                    <div class="flex justify-between border-b border-gray-50 pb-2"><span class="text-gray-500">Dispense rate</span><span class="text-gray-800 font-semibold">7–8 cups / min</span></div>
+                    <div class="flex justify-between border-b border-gray-50 pb-2"><span class="text-gray-500">Water tank</span><span class="text-gray-800 font-semibold">8 litres</span></div>
+                    <div class="flex justify-between border-b border-gray-50 pb-2"><span class="text-gray-500">Milk boiler</span><span class="text-gray-800 font-semibold">6 litres</span></div>
+                    <div class="flex justify-between pb-2"><span class="text-gray-500">Interface</span><span class="text-gray-800 font-semibold">Push button</span></div>
+                    <div class="pt-1">
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Beverages</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Filter kaapi</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Brewed tea</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Hot milk</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Hot water</span>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="openEnquiryModal()" class="w-full mt-6 bg-[#2C1208] hover:bg-[#3D1C08] text-white py-3.5 rounded-xl font-bold transition shadow-md flex justify-center items-center gap-2">
+                    Enquire about KS 100                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 lg:p-8 hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col border-t-4 border-t-[#D97706] relative">
+                <div class="absolute top-4 right-4 bg-[#D97706] text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
+                <div class="h-40 sm:h-48 md:h-56 flex items-center justify-center mb-5 bg-[#FDFBF7] rounded-xl p-4">
+                    <img src="../assets/Ks200-removebg-preview.png" alt="KS 200" class="max-h-full object-contain drop-shadow-md">
+                </div>
+                <div class="text-center mb-5">
+                    <h3 class="text-2xl font-extrabold text-[#2C1208] mb-1">KS 200</h3>
+                    <p class="text-xs text-gray-500 font-medium mb-3">For campuses &amp; large offices</p>
+                    <span class="inline-block bg-[#D97706] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-sm">600 Cups / Day</span>
+                </div>
+                <div class="space-y-2.5 flex-1 text-sm">
+                    <div class="flex justify-between border-b border-gray-50 pb-2"><span class="text-gray-500">Dispense rate</span><span class="text-gray-800 font-semibold">7–8 cups / min</span></div>
+                    <div class="flex justify-between border-b border-gray-50 pb-2"><span class="text-gray-500">Water tank</span><span class="text-gray-800 font-semibold">14 litres</span></div>
+                    <div class="flex justify-between border-b border-gray-50 pb-2"><span class="text-gray-500">Milk boiler</span><span class="text-gray-800 font-semibold">8 litres</span></div>
+                    <div class="flex justify-between pb-2"><span class="text-gray-500">Interface</span><span class="text-gray-800 font-semibold">Push button, robust</span></div>
+                    <div class="pt-1">
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Beverages</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Filter kaapi</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Brewed tea</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Hot milk</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Hot water</span>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="openEnquiryModal()" class="w-full mt-6 bg-[#D97706] hover:bg-[#B45309] text-white py-3.5 rounded-xl font-bold transition shadow-md flex justify-center items-center gap-2">
+                    Enquire about KS 200                </button>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 lg:p-8 hover:shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col sm:col-span-2 lg:col-span-1">
+                <div class="h-40 sm:h-48 md:h-56 flex items-center justify-center mb-5 bg-[#FDFBF7] rounded-xl p-4">
+                    <img src="../assets/Ks300-removebg-preview.png" alt="KS 300" class="max-h-full object-contain drop-shadow-md">
+                </div>
+                <div class="text-center mb-5">
+                    <h3 class="text-2xl font-extrabold text-[#2C1208] mb-1">KS 300</h3>
+                    <p class="text-xs text-gray-500 font-medium mb-3">For premium lounges &amp; hospitals</p>
+                    <span class="inline-block bg-[#2C1208] text-[#F5EDE0] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">350 Cups / Day</span>
+                </div>
+                <div class="space-y-2.5 flex-1 text-sm">
+                    <div class="flex justify-between border-b border-gray-50 pb-2"><span class="text-gray-500">Dispense rate</span><span class="text-gray-800 font-semibold">2 cups / min</span></div>
+                    <div class="flex justify-between border-b border-gray-50 pb-2"><span class="text-gray-500">Tanks</span><span class="text-gray-800 font-semibold">Customisable</span></div>
+                    <div class="flex justify-between pb-2"><span class="text-gray-500">Interface</span><span class="text-gray-800 font-semibold">Capacitive touch</span></div>
+                    <div class="pt-1">
+                        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Beverages</p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Cappuccino</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Latte</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Espresso</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Tea (teabag)</span>
+                            <span class="bg-coffee-50 text-coffee-700 text-xs px-2.5 py-1 rounded-full border border-coffee-100">Hot milk</span>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="openEnquiryModal()" class="w-full mt-6 bg-[#2C1208] hover:bg-[#3D1C08] text-white py-3.5 rounded-xl font-bold transition shadow-md flex justify-center items-center gap-2">
+                    Enquire about KS 300                </button>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section id="calculator" class="py-12 sm:py-16 md:py-20 px-4 bg-coffee-900 text-white relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-64 h-64 bg-coffee-700/30 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+        <div class="text-center mb-8 sm:mb-10 md:mb-14">
+            <span class="text-coffee-300 font-bold text-xs uppercase tracking-widest">Savings Calculator</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mt-2 mb-3">See How Much <span class="text-coffee-300">You Can Save</span></h2>
+            <p class="text-coffee-200 max-w-xl mx-auto text-sm sm:text-base">Enter your company size and current spend. Get an instant estimate of your annual savings.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+            <div class="space-y-7">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-sm font-bold text-coffee-100">Number of employees</label>
+                        <span id="emp-val" class="text-coffee-300 font-extrabold text-lg">300</span>
+                    </div>
+                    <input type="range" id="emp-range" min="50" max="2000" step="50" value="300" oninput="updateCalc()">
+                    <div class="flex justify-between text-xs text-coffee-400 mt-1"><span>50</span><span>2,000</span></div>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-sm font-bold text-coffee-100">Cups per employee per day</label>
+                        <span id="cups-val" class="text-coffee-300 font-extrabold text-lg">2</span>
+                    </div>
+                    <input type="range" id="cups-range" min="1" max="5" step="1" value="2" oninput="updateCalc()">
+                    <div class="flex justify-between text-xs text-coffee-400 mt-1"><span>1</span><span>5</span></div>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-sm font-bold text-coffee-100">Current cost per cup (₹)</label>
+                        <span id="cost-val" class="text-coffee-300 font-extrabold text-lg">30</span>
+                    </div>
+                    <input type="range" id="cost-range" min="10" max="80" step="5" value="30" oninput="updateCalc()">
+                    <div class="flex justify-between text-xs text-coffee-400 mt-1"><span>₹10</span><span>₹80</span></div>
+                </div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 sm:p-8 text-center shadow-2xl">
+                <p class="text-coffee-200 text-xs font-bold uppercase tracking-widest mb-2">Estimated Annual Savings</p>
+                <div id="savings-display" class="text-5xl sm:text-6xl font-black text-white mb-3"></div>
+                <p id="savings-sub" class="text-coffee-300 text-xs mb-6"></p>
+                <a href="javascript:void(0)" onclick="openEnquiryModal()" class="inline-flex justify-center items-center gap-2 bg-white text-coffee-900 hover:bg-coffee-100 px-6 py-3 rounded-xl font-bold transition w-full text-sm">
+                    Get My Exact Savings Report                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="why-us" class="py-12 sm:py-16 md:py-20 px-4 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8 sm:mb-10 md:mb-14">
+            <span class="text-coffee-600 font-bold text-xs uppercase tracking-widest">Why KaapiVend</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2 mb-3">
+                Not Just a Machine. An <span class="text-coffee-600">Estate-to-Cup Experience.</span>
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">Generic vending machines use factory pre-mix. We use Arabica beans from our own Thriveni Brooklyn Estate — the same beans in our cafés, rated 4.4★ across Tamil Nadu.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 mb-12">
+            <div class="benefit-card bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-100 text-center">
+                <h3 class="font-bold text-lg text-gray-900 mb-2">Own Estate, Not Pre-Mix</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Thriveni Brooklyn Estate beans — hand-picked, sun-dried, fresh-ground. Not a factory powder sachet.</p>
+            </div>
+            <div class="benefit-card bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-100 text-center">
+                <h3 class="font-bold text-lg text-gray-900 mb-2">Identical Cup, Every Time</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Machine-controlled dispensing means cup 1 and cup 500 taste exactly the same. No human variance.</p>
+            </div>
+            <div class="benefit-card bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-100 text-center">
+                <h3 class="font-bold text-lg text-gray-900 mb-2">Coffee Your Team Loves</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">South Indian filter kaapi — the taste employees grew up with. Not a foreign espresso they tolerate.</p>
+            </div>
+            <div class="benefit-card bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-100 text-center">
+                <h3 class="font-bold text-lg text-gray-900 mb-2">Eco-Responsible</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">Coffee grounds returned as organic manure. Salem Nature Society Award recipient for environmental commitment.</p>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="javascript:void(0)" onclick="openEnquiryModal()" class="inline-flex items-center gap-2 bg-coffee-600 hover:bg-coffee-700 text-white px-8 py-3.5 rounded-xl font-bold transition shadow-lg shadow-coffee-600/30">
+                Get a Free Demo            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-12 sm:py-16 md:py-20 px-4 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8 sm:mb-10 md:mb-14">
+            <span class="text-coffee-600 font-bold text-xs uppercase tracking-widest">How It Works</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2 mb-3">First Cup in <span class="text-coffee-600">3 Steps</span></h2>
+            <p class="text-gray-600 max-w-xl mx-auto text-sm sm:text-base">From your enquiry to your first fresh kaapi — we handle everything.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 mb-12">
+            <div class="text-center step-connector">
+                <div class="w-16 h-16 bg-coffee-600 text-white rounded-full flex items-center justify-center text-2xl font-extrabold mx-auto mb-6 shadow-lg">1</div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900">Share Your Requirements</h3>
+                <p class="text-gray-600 text-sm leading-relaxed max-w-xs mx-auto">Fill the 2-minute form. Tell us your headcount, current setup, and preferred beverage mix. Our specialist calls within 24 hours.</p>
+            </div>
+            <div class="text-center step-connector">
+                <div class="w-16 h-16 bg-coffee-600 text-white rounded-full flex items-center justify-center text-2xl font-extrabold mx-auto mb-6 shadow-lg">2</div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900">We Configure &amp; Install</h3>
+                <p class="text-gray-600 text-sm leading-relaxed max-w-xs mx-auto">Right machine selected for your volume. Installation, calibration, and staff orientation handled entirely by our team — zero effort from you.</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-coffee-600 text-white rounded-full flex items-center justify-center text-2xl font-extrabold mx-auto mb-6 shadow-lg">3</div>
+                <h3 class="text-xl font-bold mb-3 text-gray-900">Fresh Kaapi, Every Day</h3>
+                <p class="text-gray-600 text-sm leading-relaxed max-w-xs mx-auto">We handle refills, maintenance, and AMC. Monthly consumption reports shared. You focus on your business — we keep the kaapi flowing.</p>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="javascript:void(0)" onclick="openEnquiryModal()" class="inline-flex items-center gap-2 bg-coffee-600 hover:bg-coffee-700 text-white px-8 py-3.5 rounded-xl font-bold transition shadow-lg shadow-coffee-600/30">
+                Get Started Today
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-12 sm:py-16 md:py-20 px-4 hero-bg text-white relative overflow-hidden">
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-coffee-400/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-4xl mx-auto relative z-10">
+        <div class="text-center mb-8 sm:mb-10 md:mb-12">
+            <span class="text-coffee-300 font-bold text-xs uppercase tracking-widest">What You Get</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mt-2 mb-3">Everything Included — <span class="text-coffee-300">No Fine Print</span></h2>
+            <p class="text-coffee-200 max-w-xl mx-auto text-sm sm:text-base">Every KaapiVend installation comes with full support, from day one to daily operations.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
+            <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4"><i class="fa-solid fa-circle-check text-green-400 mt-0.5 shrink-0"></i><span class="text-white text-sm font-medium">Machine installed with zero setup hassle — our team comes to you</span></div>
+            <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4"><i class="fa-solid fa-circle-check text-green-400 mt-0.5 shrink-0"></i><span class="text-white text-sm font-medium">Staff oriented in under 10 minutes — no training programme needed</span></div>
+            <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4"><i class="fa-solid fa-circle-check text-green-400 mt-0.5 shrink-0"></i><span class="text-white text-sm font-medium">Dedicated relationship manager — one number for everything</span></div>
+            <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4"><i class="fa-solid fa-circle-check text-green-400 mt-0.5 shrink-0"></i><span class="text-white text-sm font-medium">Refills and preventive maintenance handled by the KaapiVend team</span></div>
+            <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4"><i class="fa-solid fa-circle-check text-green-400 mt-0.5 shrink-0"></i><span class="text-white text-sm font-medium">Monthly consumption report — cups served, cost per cup, peak hours</span></div>
+            <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4"><i class="fa-solid fa-circle-check text-green-400 mt-0.5 shrink-0"></i><span class="text-white text-sm font-medium">AMC coverage — machine breakdown support with rapid response SLA</span></div>
+            <div class="flex items-start gap-3 bg-white/10 rounded-xl p-4 sm:col-span-2"><i class="fa-solid fa-circle-check text-green-400 mt-0.5 shrink-0"></i><span class="text-white text-sm font-medium">Estate-fresh Thriveni Brooklyn kaapi powder — same as our café outlets</span></div>
+        </div>
+        <div class="mt-10 text-center">
+            <a href="javascript:void(0)" onclick="openEnquiryModal()" class="inline-flex items-center gap-2 bg-white text-coffee-900 hover:bg-coffee-100 px-8 py-4 rounded-xl font-extrabold transition shadow-lg">
+                Claim Your Free Trial            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-12 sm:py-16 md:py-20 px-4 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-8 sm:mb-10 md:mb-14">
+            <span class="text-coffee-600 font-bold text-xs uppercase tracking-widest">Our Reach</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2 mb-3">10+ Outlets. 7 Years. <span class="text-coffee-600">Across Tamil Nadu.</span></h2>
+            <p class="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">We're not a vending startup — we're a café brand with a proven track record, now bringing the same kaapi experience inside your workplace.</p>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 mb-10">
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center"><div class="font-bold text-gray-900 text-sm mb-0.5">Yercaud Adivaram</div><div class="text-xs text-gray-500">Salem</div><div class="text-coffee-500 font-bold text-xs mt-1">★ 4.3</div></div>
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center"><div class="font-bold text-gray-900 text-sm mb-0.5">Five Roads</div><div class="text-xs text-gray-500">Salem</div><div class="text-coffee-500 font-bold text-xs mt-1">★ 4.3</div></div>
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center"><div class="font-bold text-gray-900 text-sm mb-0.5">VIMS</div><div class="text-xs text-gray-500">Salem</div><div class="text-coffee-500 font-bold text-xs mt-1">★ 4.3</div></div>
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center"><div class="font-bold text-gray-900 text-sm mb-0.5">Shevapet</div><div class="text-xs text-gray-500">Salem</div><div class="text-coffee-500 font-bold text-xs mt-1">★ 4.2</div></div>
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center"><div class="font-bold text-gray-900 text-sm mb-0.5">Thoppur</div><div class="text-xs text-gray-500">Salem–Blr Highway</div><div class="text-coffee-500 font-bold text-xs mt-1">★ 4.4</div></div>
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center"><div class="font-bold text-gray-900 text-sm mb-0.5">Kaveripattinam</div><div class="text-xs text-gray-500">Salem–Blr Highway</div><div class="text-coffee-500 font-bold text-xs mt-1">★ 4.1</div></div>
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center"><div class="font-bold text-gray-900 text-sm mb-0.5">KMCH</div><div class="text-xs text-gray-500">Coimbatore</div><div class="text-coffee-500 font-bold text-xs mt-1">★ 4.2</div></div>
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center"><div class="font-bold text-gray-900 text-sm mb-0.5">Gunam Hospital</div><div class="text-xs text-gray-500">Hosur</div><div class="text-coffee-500 font-bold text-xs mt-1">★ 4.2</div></div>
+            <div class="bg-gray-50 rounded-xl p-4 border border-gray-100 text-center"><div class="font-bold text-gray-900 text-sm mb-0.5">EmDen Mess</div><div class="text-xs text-gray-500">Dharmapuri</div><div class="text-coffee-500 font-bold text-xs mt-1">★ 4.8</div></div>
+            <div class="bg-coffee-600 rounded-xl p-4 border border-coffee-500 text-center flex flex-col items-center justify-center"><div class="font-bold text-white text-sm">More Coming</div><div class="text-xs text-coffee-200 mt-0.5">Expanding fast</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="py-12 sm:py-16 md:py-20 px-4 bg-[#FDFBF7] relative overflow-hidden">
+    <div class="absolute -top-20 -right-20 w-80 h-80 bg-[#D97706] opacity-10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-6xl mx-auto relative z-10">
+        <div class="grid md:grid-cols-2 gap-8 md:gap-14 items-center">
+            <div>
+                <div class="inline-block bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full mb-4">Free 7-day trial available this month</div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-5 leading-tight text-[#2C1208]">
+                    Claim Your Free <span class="text-[#D97706]">Beverage Audit</span>
+                </h2>
+                <p class="text-gray-700 text-sm sm:text-base mb-6 leading-relaxed font-medium">Find out exactly how much you're overpaying — and what switching to KaapiVend saves you annually. Our specialist calls within 24 hours. No hard sell — just numbers that make sense for your company.</p>
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start gap-3 text-gray-700 font-medium text-sm"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i>Free on-site beverage audit with cost breakdown</li>
+                    <li class="flex items-start gap-3 text-gray-700 font-medium text-sm"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i>Machine recommendation based on your headcount</li>
+                    <li class="flex items-start gap-3 text-gray-700 font-medium text-sm"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i>Live demo of KaapiVend machine at your premises</li>
+                    <li class="flex items-start gap-3 text-gray-700 font-medium text-sm"><i class="fa-solid fa-circle-check text-green-500 mt-0.5 shrink-0"></i>7-day free trial for qualifying companies</li>
+                </ul>
+                <div class="flex items-center gap-4 pt-5 border-t border-gray-200">
+                    <img src="../assets/kaapiStoplogo.png" alt="Kaapi Stop" class="h-12 object-contain drop-shadow-sm">
+                    <div>
+                        <div class="text-[#2C1208] font-extrabold">KaapiVend by Kaapi Stop</div>
+                        <div class="text-gray-600 text-xs font-medium">Naval Foods &amp; Beverages LLP · Salem, Tamil Nadu</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 p-5 sm:p-7">
+                <div class="text-center mb-5">
+                    <h3 class="text-[#2C1208] text-xl sm:text-2xl font-extrabold">Get Free Demo or Quote</h3>
+                    <p class="text-gray-500 text-xs mt-1 font-medium">Specialist calls within 24 hours.</p>
+                </div>
+                <form onsubmit="handleSubmit(event)" class="space-y-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div><label class="block text-xs font-bold text-gray-700 mb-1">Your Name *</label><input type="text" name="name" placeholder="Ramesh Kumar" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
+                        <div><label class="block text-xs font-bold text-gray-700 mb-1">Designation *</label><input type="text" name="designation" placeholder="HR Manager" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
+                    </div>
+                    <div><label class="block text-xs font-bold text-gray-700 mb-1">Company Name *</label><input type="text" name="company" placeholder="Acme Industries Pvt. Ltd." required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div><label class="block text-xs font-bold text-gray-700 mb-1">Phone Number *</label><input type="tel" name="phone" placeholder="+91 98XXX XXXXX" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
+                        <div><label class="block text-xs font-bold text-gray-700 mb-1">Work Email *</label><input type="email" name="email" placeholder="you@company.com" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
+                    </div>
+                    <div><label class="block text-xs font-bold text-gray-700 mb-1">No. of Employees *</label>
+                        <select name="employees" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-gray-700 text-sm bg-white outline-none cursor-pointer">
+                            <option value="" disabled selected>Select range</option>
+                            <option>50 – 200</option><option>200 – 500</option><option>500 – 1000</option><option>1000+</option>
+                        </select>
+                    </div>
+                    <div><label class="block text-xs font-bold text-gray-700 mb-1">City *</label><input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
+                    <button type="submit" class="w-full bg-[#B45309] hover:bg-[#92400E] text-white py-3.5 rounded-md font-bold transition shadow-md flex items-center justify-center gap-2">
+                        Get Free Demo or Quote                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="py-12 sm:py-16 md:py-20 px-4 bg-gray-50">
+    <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-8 sm:mb-10 md:mb-14">
+            <span class="text-coffee-600 font-bold text-xs uppercase tracking-widest">FAQ</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2">Common <span class="text-coffee-600">Questions</span></h2>
+        </div>
+        <div class="space-y-3 mb-10">
+            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">How is KaapiVend different from Nescafé or generic vending machines?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
+                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Generic machines use factory pre-mix powder from unknown sources. KaapiVend uses Arabica beans from our own Thriveni Brooklyn Estate — the same beans served in our cafés rated 4.4★ across Tamil Nadu. The difference is unmistakable in every cup.</div></div>
+            </div>
+            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">What beverages can one machine dispense?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
+                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">KS 100 and KS 200 offer filter coffee (strong/light/black), brewed tea (strong/light/black), hot milk, and hot water. KS 300 adds cappuccino, latte, and espresso via a touch screen. Specialty mixes like ginger tea, elaichi tea, sukku kaapi, and badam mix are also available.</div></div>
+            </div>
+            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">Who handles maintenance and refills?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
+                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">We do. A dedicated relationship manager handles all refills, servicing, and breakdown support under our AMC programme. You receive a monthly consumption report and have a single point of contact for everything.</div></div>
+            </div>
+            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">What is the approximate cost per cup?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
+                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Typically ₹6–₹10 per cup depending on volume and model — compared to ₹25–₹50 with vendor-made beverages. Our free demo or quote gives you an exact figure tailored to your specific setup and headcount.</div></div>
+            </div>
+            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">Can we trial the machine before committing?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
+                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Yes — qualifying companies this month get a free 7-day trial machine. Fill the form and our team will assess your eligibility during the first call. No deposit or commitment required for the trial.</div></div>
+            </div>
+            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">Is there a minimum contract period?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
+                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Flexible terms are available based on your company size and requirements. Our specialist will walk you through options during the consultation — no lock-in pressure on the first call.</div></div>
+            </div>
+            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">Which cities do you currently serve?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
+                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">We currently serve Salem, Coimbatore, Hosur, and Dharmapuri. We are expanding rapidly across Tamil Nadu. Contact us to check availability in your city — we may be closer than you think.</div></div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="javascript:void(0)" onclick="openEnquiryModal()" class="inline-flex items-center gap-2 bg-coffee-600 hover:bg-coffee-700 text-white px-8 py-3.5 rounded-xl font-bold transition shadow-lg shadow-coffee-600/30">
+                Still have questions? Talk to our specialist            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-gray-950 text-gray-400 py-10 sm:py-12 md:py-14 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-10 mb-10">
+            <div>
+                <img src="../assets/kaapiStoplogo.png" alt="Kaapi Stop" class="h-11 object-contain brightness-[3] mb-4">
+                <p class="text-xs font-bold text-coffee-400 mb-2">KaapiVend by Kaapi Stop</p>
+                <p class="text-sm leading-relaxed text-gray-500 max-w-xs">Naval Foods &amp; Beverages LLP — estate-to-cup coffee vending partner for businesses across Tamil Nadu.</p>
+                
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-xs uppercase tracking-widest">Quick Links</h4>
+                <ul class="space-y-2 text-sm text-gray-500">
+                    <li><a href="#problem"    class="hover:text-coffee-400 transition">The Problem</a></li>
+                    <li><a href="#machines"   class="hover:text-coffee-400 transition">Machine Lineup</a></li>
+                    <li><a href="#calculator" class="hover:text-coffee-400 transition">Savings Calculator</a></li>
+                    <li><a href="#why-us"     class="hover:text-coffee-400 transition">Why KaapiVend</a></li>
+                    <li><a href="#faq"        class="hover:text-coffee-400 transition">FAQ</a></li>
+                    <li><a href="javascript:void(0)" onclick="openEnquiryModal()" class="hover:text-coffee-400 transition">Get Free Demo or Quote</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-xs uppercase tracking-widest">Contact Us</h4>
+                <ul class="space-y-3 text-sm text-gray-500">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-coffee-600 w-4 text-center"></i><a href="tel:+918925711299" class="hover:text-coffee-400">+91 89257 11299</a></li>
+                    <li class="flex items-center gap-3"><i class="fa-brands fa-whatsapp text-coffee-600 w-4 text-center"></i><a href="https://wa.me/918925711299" class="hover:text-coffee-400">WhatsApp Us</a></li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-coffee-600 w-4 text-center"></i><a href="mailto:b2bsales@kaapistop.com" class="hover:text-coffee-400">b2bsales@kaapistop.com</a></li>
+                    <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-coffee-600 w-4 text-center mt-0.5"></i><span>No. 43–45, SIDCO Industrial Estate, Five Roads, Salem – 636004</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between gap-2 text-xs text-gray-600">
+            <p>© 2025 Naval Foods &amp; Beverages LLP. All rights reserved.</p>
+            <p><a href="#" class="hover:text-gray-400">Privacy Policy</a> · <a href="#" class="hover:text-gray-400">Terms &amp; Conditions</a></p>
+        </div>
+    </div>
+</footer>
+
+<div class="fixed-enquire fixed top-[90%] right-4 md:right-6 -translate-y-1/2 z-50 hidden md:flex">
+    <a href="javascript:void(0)" onclick="openEnquiryModal()" class="flex items-center justify-center gap-2 bg-[#D97706] hover:bg-[#B45309] text-white font-bold py-3.5 px-6 rounded-full shadow-[0_8px_25px_rgba(217,119,6,0.4)] transition-all hover:scale-105 active:scale-95">
+        <span class="text-sm">Enquire</span>
+    </a>
+</div>
+
+<div id="enquiry-modal" class="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm hidden px-0 sm:px-4">
+    <div class="bg-white rounded-t-2xl sm:rounded-2xl p-6 sm:p-8 max-w-lg w-full relative shadow-2xl max-h-[90vh] overflow-y-auto modal-scroll">
+        <button onclick="closeEnquiryModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition"><i class="fa-solid fa-xmark"></i></button>
+        <div class="text-center mb-6 mt-2">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 mb-1">Get Free Demo or Quote</h2>
+            <p class="text-xs text-gray-500 font-medium">Specialist calls back within <span class="font-bold text-gray-800">24 hours</span></p>
+        </div>
+        <form onsubmit="handleSubmit(event)" class="space-y-3">
+            <div class="grid grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">Your Name *</label><input type="text" name="name" placeholder="Ramesh Kumar" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">Designation *</label><input type="text" name="designation" placeholder="HR Manager" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            </div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">Company Name *</label><input type="text" name="company" placeholder="Acme Industries Pvt. Ltd." required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">Phone Number *</label><input type="tel" name="phone" placeholder="+91 98XXX XXXXX" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">No. of Employees *</label>
+                <select name="employees" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm text-gray-600 bg-white cursor-pointer">
+                    <option value="" disabled selected>Select range</option>
+                    <option>50 – 200</option><option>200 – 500</option><option>500 – 1000</option><option>1000+</option>
+                </select>
+            </div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">City *</label><input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <button type="submit" class="w-full bg-[#B45309] hover:bg-[#92400E] text-white font-bold py-3.5 rounded-md transition flex justify-center items-center gap-2 shadow-lg shadow-coffee-600/30">
+                Get Free Demo or Quote            </button>
+        </form>
+    </div>
+</div>
+
+<div id="success-modal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm hidden px-4">
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-check text-green-500 text-2xl"></i></div>
+        <h3 class="text-xl font-extrabold text-gray-900 mb-2">Request Received!</h3>
+        <p class="text-gray-600 text-sm mb-6">Our vending specialist will call you within <strong>24 hours</strong> with your free demo or quote. No commitment required.</p>
+        <button onclick="closeSuccessModal()" class="bg-coffee-600 hover:bg-coffee-700 text-white px-8 py-3 rounded-xl font-bold transition w-full shadow-lg shadow-coffee-600/30">Got it!</button>
+    </div>
+</div>
+
+<script>
+    function toggleFaq(el) {
+        const isOpen = el.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) el.classList.add('open');
+    }
+    function openEnquiryModal() {
+        document.getElementById('enquiry-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeEnquiryModal() {
+        document.getElementById('enquiry-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+    function closeSuccessModal() {
+        document.getElementById('success-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+    function handleSubmit(e) {
+        e.preventDefault();
+        closeEnquiryModal();
+        document.getElementById('success-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        e.target.reset();
+    }
+    function toggleMobileNav() {
+        const nav = document.getElementById('mobile-nav');
+        const btn = document.getElementById('mobile-menu-btn');
+        const isOpen = nav.classList.toggle('is-open');
+        btn.classList.toggle('is-open', isOpen);
+    }
+    function closeMobileNav() {
+        document.getElementById('mobile-nav').classList.remove('is-open');
+        document.getElementById('mobile-menu-btn').classList.remove('is-open');
+    }
+    window.addEventListener('click', function(e) {
+        const em = document.getElementById('enquiry-modal');
+        const sm = document.getElementById('success-modal');
+        if (e.target === em) closeEnquiryModal();
+        if (e.target === sm) closeSuccessModal();
+    });
+    document.addEventListener('click', function(e) {
+        const nav = document.getElementById('mobile-nav');
+        const btn = document.getElementById('mobile-menu-btn');
+        if (nav.classList.contains('is-open') && !nav.contains(e.target) && !btn.contains(e.target)) closeMobileNav();
+    });
+    function updateCalc() {
+        const emp  = parseInt(document.getElementById('emp-range').value);
+        const cups = parseInt(document.getElementById('cups-range').value);
+        const cost = parseInt(document.getElementById('cost-range').value);
+        document.getElementById('emp-val').textContent  = emp.toLocaleString('en-IN');
+        document.getElementById('cups-val').textContent = cups;
+        document.getElementById('cost-val').textContent = cost;
+        const savings = (cost - 8) * emp * cups * 300;
+        document.getElementById('savings-display').textContent =
+            savings >= 100000 ? '₹' + (savings/100000).toFixed(1) + ' L' : '₹' + (savings/1000).toFixed(0) + ' K';
+        document.getElementById('savings-sub').textContent =
+            'Based on KaapiVend cost of ₹8/cup · ' + emp.toLocaleString('en-IN') + ' employees · ' + cups + ' cups/day · 300 working days';
+    }
+    updateCalc();
+    function toggleVideoMute() {
+        const v = document.getElementById('demo-video');
+        const icon = document.getElementById('mute-icon');
+        v.muted = !v.muted;
+        icon.className = v.muted ? 'fa-solid fa-volume-xmark text-xs' : 'fa-solid fa-volume-high text-xs';
+    }
+
+    // Paste your Google Apps Script Web App URL here
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsBt0Q7qhg-R1Kzbor5osKz1JwsTKwt-DrQrMRetie0AGtRYK-fENgWL7bnGIWYIcItA/exec';
+
+function getUrlSources() {
+    const sources = {};
+    new URLSearchParams(window.location.search).forEach((val, key) => {
+        if (key.endsWith('_source')) sources[key] = val.replace(/^"|"$/g, '');
+    });
+    return sources;
+}
+
+function handleSubmit(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+    submitBtn.disabled = true;
+
+    const formData = new FormData(form);
+    Object.entries(getUrlSources()).forEach(([k, v]) => formData.append(k, v));
+
+    // Send the POST request
+    fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Crucial: prevents CORS errors caused by Google's redirect
+        body: formData
+    })
+    .then(() => {
+        // Since no-cors prevents reading the response, we assume success if it doesn't throw a network error
+        closeEnquiryModal();
+        document.getElementById('success-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        form.reset();
+    })
+    .catch(error => {
+        console.error('Error!', error.message);
+        alert('Something went wrong. Please check your connection and try again.');
+    })
+    .finally(() => {
+        // Restore the button to its original state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    });
+}
+</script>
+
+<div class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200 shadow-[0_-2px_16px_rgba(0,0,0,0.1)]">
+    <div class="flex gap-2 px-3 py-2.5">
+        <a href="tel:+918925711299" class="flex-1 flex items-center justify-center gap-2 bg-gray-900 active:bg-gray-700 text-white py-3 rounded-xl font-bold text-sm transition">
+            Call Now
+        </a>
+        <button onclick="openEnquiryModal()" class="flex-1 flex items-center justify-center gap-2 bg-coffee-600 active:bg-coffee-800 text-white py-3 rounded-xl font-bold text-sm transition">
+            Free Demo or Quote
+        </button>
+    </div>
+</div>
+</body>
+</html>

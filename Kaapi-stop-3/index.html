@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Calculator - KaapiStop</title>
+    <link rel="icon" type="image/png" href="../assets/kaapiStoplogo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            50:  '#FFF8F0',
+                            100: '#FEF0DC',
+                            200: '#FCD9A8',
+                            300: '#F9B96A',
+                            400: '#F59E0B',
+                            500: '#D97706',
+                            600: '#B45309',
+                            700: '#92400E',
+                            800: '#78350F',
+                            900: '#431407',
+                        },
+                        primary: '#2C1208',
+                        'on-primary': '#F5EDE0',
+                        'secondary-fixed': '#A0623A',
+                    },
+                    maxWidth: { 'container-max-width': '1200px' },
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --cream:#F5EDE0; --cream2:#EDE0CE;
+            --brown:#3D1C08; --brown-mid:#6B3520;
+            --brown-light:#A0623A; --warm-white:#FBF6F0;
+            --text-main:#2C1208; --text-muted:#7A5540;
+        }
+        body { font-family: 'Poppins', sans-serif; }
+
+        /* NAV */
+        nav {
+            position:fixed; top:0; left:0; right:0; z-index:500;
+            padding:1.4rem 5vw;
+            display:flex; align-items:center; justify-content:space-between;
+            backdrop-filter: blur(10px);
+        }
+        .nav-logo { display:flex;  align-items:center; filter: brightness(0) invert(1); text-decoration:none; }
+        .logo-main { height:60px; transition:height .3s ease; }
+        .nav-cta {
+            background:var(--cream); color:var(--brown);
+            padding:.6rem 1.4rem; border-radius:2px;
+            font-family:'Arial',sans-serif; font-size:.75rem; letter-spacing:2px;
+            text-transform:uppercase; text-decoration:none;
+            transition:all .2s; cursor:pointer; border:none;
+        }
+        .nav-cta:hover { background:var(--cream2); transform:translateY(-2px); }
+
+        /* FOOTER RESETS */
+        footer a { color:inherit; text-decoration:none; }
+        footer ul { list-style:none; padding:0; margin:0; }
+        
+        input:focus,select:focus,textarea:focus { outline:none; border-color:#B45309 !important; box-shadow:0 0 0 3px rgba(180,83,9,.18) !important; }
+        
+        .modal-scroll::-webkit-scrollbar { width:6px; }
+        .modal-scroll::-webkit-scrollbar-track { background:#f1f1f1; border-radius:8px; }
+        .modal-scroll::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:8px; }
+        .modal-scroll::-webkit-scrollbar-thumb:hover { background:#B45309; }
+        
+        input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:6px; background:#FCD9A8; border-radius:3px; outline:none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:20px; height:20px; background:#B45309; border-radius:50%; cursor:pointer; box-shadow:0 2px 8px rgba(180,83,9,.4); }
+        input[type=range]:focus { box-shadow:none !important; border-color:transparent !important; }
+    </style>
+</head>
+<body class="antialiased bg-white text-gray-900 overflow-x-hidden">
+
+<nav>
+  <a href="#" class="nav-logo">
+    <img class="logo-main" src="../assets/kaapiStoplogo.png" alt="Kaapistop Logo">
+  </a>
+  <button class="nav-cta" onclick="openEnquiryModal()">Book a Demo</button>
+</nav>
+
+<section id="calculator" class="py-12 sm:py-16 md:py-20 px-4 bg-coffee-900 text-white relative overflow-hidden" style="padding-top:130px;">
+    <div class="absolute top-0 left-0 w-64 h-64 bg-coffee-700/30 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-5xl mx-auto relative z-10">
+        <div class="text-center mb-8 sm:mb-10 md:mb-14">
+            <span class="text-coffee-300 font-bold text-xs uppercase tracking-widest">Savings Calculator</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mt-2 mb-3">See How Much <span class="text-coffee-300">You Can Save</span></h2>
+            <p class="text-coffee-200 max-w-xl mx-auto text-sm sm:text-base">Enter your company size and current spend. Get an instant estimate of your annual savings.</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+            <div class="space-y-7">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-sm font-bold text-coffee-100">Number of employees</label>
+                        <span id="emp-val" class="text-coffee-300 font-extrabold text-lg">300</span>
+                    </div>
+                    <input type="range" id="emp-range" min="50" max="2000" step="50" value="300" oninput="updateCalc()">
+                    <div class="flex justify-between text-xs text-coffee-400 mt-1"><span>50</span><span>2,000</span></div>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-sm font-bold text-coffee-100">Cups per employee per day</label>
+                        <span id="cups-val" class="text-coffee-300 font-extrabold text-lg">2</span>
+                    </div>
+                    <input type="range" id="cups-range" min="1" max="5" step="1" value="2" oninput="updateCalc()">
+                    <div class="flex justify-between text-xs text-coffee-400 mt-1"><span>1</span><span>5</span></div>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="text-sm font-bold text-coffee-100">Current cost per cup (₹)</label>
+                        <span id="cost-val" class="text-coffee-300 font-extrabold text-lg">30</span>
+                    </div>
+                    <input type="range" id="cost-range" min="10" max="80" step="5" value="30" oninput="updateCalc()">
+                    <div class="flex justify-between text-xs text-coffee-400 mt-1"><span>₹10</span><span>₹80</span></div>
+                </div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 sm:p-8 text-center shadow-2xl">
+                <p class="text-coffee-200 text-xs font-bold uppercase tracking-widest mb-2">Estimated Annual Savings</p>
+                <div id="savings-display" class="text-5xl sm:text-6xl font-black text-white mb-3"></div>
+                <p id="savings-sub" class="text-coffee-300 text-xs mb-6"></p>
+                <a href="javascript:void(0)" onclick="openEnquiryModal()" class="inline-flex justify-center items-center gap-2 bg-white text-coffee-900 hover:bg-coffee-100 px-6 py-3 rounded-xl font-bold transition w-full text-sm">
+                    Get My Exact Savings Report                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="enquiry-modal" class="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm hidden px-0 sm:px-4">
+    <div class="bg-white rounded-t-2xl sm:rounded-2xl p-6 sm:p-8 max-w-lg w-full relative shadow-2xl max-h-[90vh] overflow-y-auto modal-scroll">
+        <button onclick="closeEnquiryModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition"><i class="fa-solid fa-xmark"></i></button>
+        <div class="text-center mb-6 mt-2">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 mb-1">Get Free Demo or Quote</h2>
+            <p class="text-xs text-gray-500 font-medium">Specialist calls back within <span class="font-bold text-gray-800">24 hours</span></p>
+        </div>
+        <form onsubmit="handleSubmit(event)" class="space-y-3">
+            <div class="grid grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">Your Name *</label><input type="text" name="name" placeholder="Ramesh Kumar" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">Designation *</label><input type="text" name="designation" placeholder="HR Manager" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            </div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">Company Name *</label><input type="text" name="company" placeholder="Acme Industries Pvt. Ltd." required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">Phone Number *</label><input type="tel" name="phone" placeholder="+91 98XXX XXXXX" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">No. of Employees *</label>
+                <select name="employees" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm text-gray-600 bg-white cursor-pointer">
+                    <option value="" disabled selected>Select range</option>
+                    <option>50 – 200</option><option>200 – 500</option><option>500 – 1000</option><option>1000+</option>
+                </select>
+            </div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">City *</label><input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <button type="submit" class="w-full bg-[#B45309] hover:bg-[#92400E] text-white font-bold py-3.5 rounded-md transition flex justify-center items-center gap-2 shadow-lg shadow-coffee-600/30">
+                Get Free Demo or Quote            </button>
+        </form>
+    </div>
+</div>
+
+<div id="success-modal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm hidden px-4">
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-check text-green-500 text-2xl"></i></div>
+        <h3 class="text-xl font-extrabold text-gray-900 mb-2">Request Received!</h3>
+        <p class="text-gray-600 text-sm mb-6">Our vending specialist will call you within <strong>24 hours</strong> with your free demo or quote. No commitment required.</p>
+        <button onclick="closeSuccessModal()" class="bg-coffee-600 hover:bg-coffee-700 text-white px-8 py-3 rounded-xl font-bold transition w-full shadow-lg shadow-coffee-600/30">Got it!</button>
+    </div>
+</div>
+
+<footer class="bg-primary text-on-primary pt-20 pb-10 px-6 md:px-16 relative z-20">
+  <div class="max-w-container-max-width mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <div class="space-y-6">
+        <img src="../assets/kaapiStoplogo.png" alt="Kaapi Stop Logo" class="h-28 w-auto object-contain brightness-0 invert">
+        <p class="text-on-primary/70 max-w-xs text-sm leading-relaxed">
+          Bringing you the finest coffee experience. A proud brand of Naval Foods & Beverages LLP.
+        </p>
+      </div>
+      <div class="space-y-6">
+        <h4 class="text-xs uppercase tracking-widest font-bold text-secondary-fixed">Our Outlets</h4>
+        <div class="space-y-6">
+          <div>
+            <h5 class="font-bold text-on-primary text-sm mb-2">Salem</h5>
+            <ul class="space-y-2 text-on-primary/70 text-sm">
+              <li>Yercaud</li><li>Yercaud Adivaram</li>
+              <li>Five Roads</li><li>Shevapet</li><li>VIMS</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-bold text-on-primary text-sm mb-2">Salem - Bangalore Highway</h5>
+            <ul class="space-y-2 text-on-primary/70 text-sm">
+              <li>Kaveripattinam</li><li>Thoppur</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-6 lg:pt-10">
+        <div class="space-y-6">
+          <div>
+            <h5 class="font-bold text-on-primary text-sm mb-2">Coimbatore</h5>
+            <ul class="space-y-2 text-on-primary/70 text-sm"><li>KMCH</li></ul>
+          </div>
+          <div>
+            <h5 class="font-bold text-on-primary text-sm mb-2">Hosur</h5>
+            <ul class="space-y-2 text-on-primary/70 text-sm"><li>Gunam Hospital</li></ul>
+          </div>
+          <div>
+            <h5 class="font-bold text-on-primary text-sm mb-2">Darmapuri</h5>
+            <ul class="space-y-2 text-on-primary/70 text-sm"><li>EmDen Mess</li></ul>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-6">
+        <h4 class="text-xs uppercase tracking-widest font-bold text-secondary-fixed">Contact Us</h4>
+        <div class="space-y-5 text-on-primary/70 text-sm">
+          <div>
+            <strong class="text-on-primary block mb-1">NAVAL FOODS & BEVERAGES LLP</strong>
+            <p class="leading-relaxed">
+              No: 43-45, Sidco Industrial Estate,<br>
+              Five roads, Narasothipatti,<br>
+              Salem, Tamil Nadu - 636 004
+            </p>
+          </div>
+          <div class="pt-4 border-t border-on-primary/20">
+            <strong class="text-on-primary block mb-3">Vending Division Manager</strong>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-base">mail</span>
+                <a href="mailto:b2bsales@kaapistop.com" class="hover:text-secondary-fixed transition-colors break-all">b2bsales@kaapistop.com</a>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-base">call</span>
+                <a href="tel:+918925711299" class="hover:text-secondary-fixed transition-colors">89257 11299</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pt-8 border-t border-on-primary/10 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
+      <p class="text-xs text-on-primary/50">© 2024 Naval Foods & Beverages LLP. All rights reserved.</p>
+      
+    </div>
+  </div>
+</footer>
+
+<script>
+    function updateCalc() {
+        const emp  = parseInt(document.getElementById('emp-range').value);
+        const cups = parseInt(document.getElementById('cups-range').value);
+        const cost = parseInt(document.getElementById('cost-range').value);
+        
+        document.getElementById('emp-val').textContent  = emp.toLocaleString('en-IN');
+        document.getElementById('cups-val').textContent = cups;
+        document.getElementById('cost-val').textContent = cost;
+        
+        const savings = (cost - 8) * emp * cups * 300;
+        
+        document.getElementById('savings-display').textContent =
+            savings >= 100000 ? '₹' + (savings/100000).toFixed(1) + ' L' : '₹' + (savings/1000).toFixed(0) + ' K';
+            
+        document.getElementById('savings-sub').textContent =
+            'Based on KaapiVend cost of ₹8/cup · ' + emp.toLocaleString('en-IN') + ' employees · ' + cups + ' cups/day · 300 working days';
+    }
+    
+    // Initialize calculator
+    updateCalc();
+
+    // Modal logic
+    function openEnquiryModal() {
+        document.getElementById('enquiry-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeEnquiryModal() {
+        document.getElementById('enquiry-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+    
+    function closeSuccessModal() {
+        document.getElementById('success-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modals on outside click
+    window.addEventListener('click', function(e) {
+        const em = document.getElementById('enquiry-modal');
+        const sm = document.getElementById('success-modal');
+        if (e.target === em) closeEnquiryModal();
+        if (e.target === sm) closeSuccessModal();
+    });
+
+    // Form submission
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwsBt0Q7qhg-R1Kzbor5osKz1JwsTKwt-DrQrMRetie0AGtRYK-fENgWL7bnGIWYIcItA/exec';
+
+    function getUrlSources() {
+        const sources = {};
+        new URLSearchParams(window.location.search).forEach((val, key) => {
+            if (key.endsWith('_source')) sources[key] = val.replace(/^"|"$/g, '');
+        });
+        return sources;
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+        submitBtn.disabled = true;
+
+        const formData = new FormData(form);
+        Object.entries(getUrlSources()).forEach(([k, v]) => formData.append(k, v));
+
+        fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
+        })
+        .then(() => {
+            closeEnquiryModal();
+            document.getElementById('success-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            form.reset();
+        })
+        .catch(error => {
+            console.error('Error!', error.message);
+            alert('Something went wrong. Please check your connection and try again.');
+        })
+        .finally(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+    }
+</script>
+
+</body>
+</html>
