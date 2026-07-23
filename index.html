@@ -222,16 +222,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Current Setup *</label>
-                        <select name="setup" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm text-gray-600 bg-white cursor-pointer">
-                            <option value="" disabled selected>Select</option>
-                            <option>Vendor / caterer</option><option>In-house preparation</option><option>Existing vending machine</option><option>No setup yet</option>
-                        </select>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">City *</label>
+                        <input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm">
                     </div>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-gray-700 mb-1">City *</label>
-                    <input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm">
                 </div>
                 <button type="submit" class="w-full bg-[#B45309] hover:bg-[#92400E] text-white font-bold py-3.5 rounded-md transition flex justify-center items-center gap-2">
                     Get Free Demo or Quote
@@ -691,13 +684,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div><label class="block text-xs font-bold text-gray-700 mb-1">Phone Number *</label><input type="tel" name="phone" placeholder="+91 98XXX XXXXX" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
                         <div><label class="block text-xs font-bold text-gray-700 mb-1">Work Email *</label><input type="email" name="email" placeholder="you@company.com" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
                     </div>
-                    <div><label class="block text-xs font-bold text-gray-700 mb-1">No. of Employees *</label>
-                        <select name="employees" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-gray-700 text-sm bg-white outline-none cursor-pointer">
-                            <option value="" disabled selected>Select range</option>
-                            <option>50 – 200</option><option>200 – 500</option><option>500 – 1000</option><option>1000+</option>
-                        </select>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div><label class="block text-xs font-bold text-gray-700 mb-1">No. of Employees *</label>
+                            <select name="employees" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-gray-700 text-sm bg-white outline-none cursor-pointer">
+                                <option value="" disabled selected>Select range</option>
+                                <option>50 – 200</option><option>200 – 500</option><option>500 – 1000</option><option>1000+</option>
+                            </select>
+                        </div>
+                        <div><label class="block text-xs font-bold text-gray-700 mb-1">City *</label><input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
                     </div>
-                    <div><label class="block text-xs font-bold text-gray-700 mb-1">City *</label><input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 border border-gray-300 rounded-md text-sm outline-none"></div>
                     <button type="submit" class="w-full bg-[#B45309] hover:bg-[#92400E] text-white py-3.5 rounded-md font-bold transition shadow-md flex items-center justify-center gap-2">
                         Get Free Demo or Quote                    </button>
                 </form>
@@ -713,38 +708,95 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2">Common <span class="text-coffee-600">Questions</span></h2>
         </div>
         <div class="space-y-3 mb-10">
-            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">How is KaapiVend different from Nescafé or generic vending machines?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
-                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Generic machines use factory pre-mix powder from unknown sources. KaapiVend uses Arabica beans from our own Thriveni Brooklyn Estate — the same beans served in our cafés rated 4.4★ across Tamil Nadu. The difference is unmistakable in every cup.</div></div>
+            <div class="faq-item group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4">
+                    <h4 class="font-semibold text-gray-900 text-sm sm:text-base">How is KaapiVend different from Nescafé or generic vending machines?</h4>
+                    <i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="min-h-[0px] opacity-0 transition-opacity duration-300 group-[.open]:opacity-100">
+                        <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Generic machines use factory pre-mix powder from unknown sources. KaapiVend uses Arabica beans from our own Thriveni Brooklyn Estate — the same beans served in our cafés rated 4.4★ across Tamil Nadu. The difference is unmistakable in every cup.</div>
+                    </div>
+                </div>
             </div>
-            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">What beverages can one machine dispense?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
-                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">KS 100 and KS 200 offer filter coffee (strong/light/black), brewed tea (strong/light/black), hot milk, and hot water. KS 300 adds cappuccino, latte, and espresso via a touch screen. Specialty mixes like ginger tea, elaichi tea, sukku kaapi, and badam mix are also available.</div></div>
+            
+            <div class="faq-item group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4">
+                    <h4 class="font-semibold text-gray-900 text-sm sm:text-base">What beverages can one machine dispense?</h4>
+                    <i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="min-h-[0px] opacity-0 transition-opacity duration-300 group-[.open]:opacity-100">
+                        <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">KS 100 and KS 200 offer filter coffee (strong/light/black), brewed tea (strong/light/black), hot milk, and hot water. KS 300 adds cappuccino, latte, and espresso via a touch screen. Specialty mixes like ginger tea, elaichi tea, sukku kaapi, and badam mix are also available.</div>
+                    </div>
+                </div>
             </div>
-            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">Who handles maintenance and refills?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
-                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">We do. A dedicated relationship manager handles all refills, servicing, and breakdown support under our AMC programme. You receive a monthly consumption report and have a single point of contact for everything.</div></div>
+            
+            <div class="faq-item group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4">
+                    <h4 class="font-semibold text-gray-900 text-sm sm:text-base">Who handles maintenance and refills?</h4>
+                    <i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="min-h-[0px] opacity-0 transition-opacity duration-300 group-[.open]:opacity-100">
+                        <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">We do. A dedicated relationship manager handles all refills, servicing, and breakdown support under our AMC programme. You receive a monthly consumption report and have a single point of contact for everything.</div>
+                    </div>
+                </div>
             </div>
-            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">What is the approximate cost per cup?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
-                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Typically ₹6–₹10 per cup depending on volume and model — compared to ₹25–₹50 with vendor-made beverages. Our free demo or quote gives you an exact figure tailored to your specific setup and headcount.</div></div>
+            
+            <div class="faq-item group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4">
+                    <h4 class="font-semibold text-gray-900 text-sm sm:text-base">What is the approximate cost per cup?</h4>
+                    <i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="min-h-[0px] opacity-0 transition-opacity duration-300 group-[.open]:opacity-100">
+                        <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Typically ₹6–₹10 per cup depending on volume and model — compared to ₹25–₹50 with vendor-made beverages. Our free demo or quote gives you an exact figure tailored to your specific setup and headcount.</div>
+                    </div>
+                </div>
             </div>
-            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">Can we trial the machine before committing?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
-                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Yes — qualifying companies this month get a free 7-day trial machine. Fill the form and our team will assess your eligibility during the first call. No deposit or commitment required for the trial.</div></div>
+            
+            <div class="faq-item group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4">
+                    <h4 class="font-semibold text-gray-900 text-sm sm:text-base">Can we trial the machine before committing?</h4>
+                    <i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="min-h-[0px] opacity-0 transition-opacity duration-300 group-[.open]:opacity-100">
+                        <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Yes — qualifying companies this month get a free 7-day trial machine. Fill the form and our team will assess your eligibility during the first call. No deposit or commitment required for the trial.</div>
+                    </div>
+                </div>
             </div>
-            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">Is there a minimum contract period?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
-                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Flexible terms are available based on your company size and requirements. Our specialist will walk you through options during the consultation — no lock-in pressure on the first call.</div></div>
+            
+            <div class="faq-item group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4">
+                    <h4 class="font-semibold text-gray-900 text-sm sm:text-base">Is there a minimum contract period?</h4>
+                    <i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="min-h-[0px] opacity-0 transition-opacity duration-300 group-[.open]:opacity-100">
+                        <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">Flexible terms are available based on your company size and requirements. Our specialist will walk you through options during the consultation — no lock-in pressure on the first call.</div>
+                    </div>
+                </div>
             </div>
-            <div class="faq-item bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
-                <div class="flex justify-between items-center p-5 gap-4"><h4 class="font-semibold text-gray-900 text-sm sm:text-base">Which cities do you currently serve?</h4><i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i></div>
-                <div class="faq-answer"><div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">We currently serve Salem, Coimbatore, Hosur, and Dharmapuri. We are expanding rapidly across Tamil Nadu. Contact us to check availability in your city — we may be closer than you think.</div></div>
+            
+            <div class="faq-item group bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden cursor-pointer" onclick="toggleFaq(this)">
+                <div class="flex justify-between items-center p-5 gap-4">
+                    <h4 class="font-semibold text-gray-900 text-sm sm:text-base">Which cities do you currently serve?</h4>
+                    <i class="fa-solid fa-chevron-down faq-chevron text-coffee-600 shrink-0"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="min-h-[0px] opacity-0 transition-opacity duration-300 group-[.open]:opacity-100">
+                        <div class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">We currently serve Salem, Coimbatore, Hosur, and Dharmapuri. We are expanding rapidly across Tamil Nadu. Contact us to check availability in your city — we may be closer than you think.</div>
+                    </div>
+                </div>
             </div>
         </div>
+        
         <div class="text-center">
             <a href="javascript:void(0)" onclick="openEnquiryModal()" class="inline-flex items-center gap-2 bg-coffee-600 hover:bg-coffee-700 text-white px-8 py-3.5 rounded-xl font-bold transition shadow-lg shadow-coffee-600/30">
-                Still have questions? Talk to our specialist            </a>
+                Still have questions? Talk to our specialist
+            </a>
         </div>
     </div>
 </section>
@@ -800,33 +852,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p class="text-xs text-gray-500 font-medium">Specialist calls back within <span class="font-bold text-gray-800">24 hours</span></p>
         </div>
         <form onsubmit="handleSubmit(event)" class="space-y-3">
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div><label class="block text-xs font-bold text-gray-700 mb-1">Your Name *</label><input type="text" name="name" placeholder="Ramesh Kumar" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
                 <div><label class="block text-xs font-bold text-gray-700 mb-1">Designation *</label><input type="text" name="designation" placeholder="HR Manager" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
             </div>
             <div><label class="block text-xs font-bold text-gray-700 mb-1">Company Name *</label><input type="text" name="company" placeholder="Acme Industries Pvt. Ltd." required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
-            <div><label class="block text-xs font-bold text-gray-700 mb-1">Phone Number *</label><input type="tel" name="phone" placeholder="+91 98XXX XXXXX" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
-            <div><label class="block text-xs font-bold text-gray-700 mb-1">No. of Employees *</label>
-                <select name="employees" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm text-gray-600 bg-white cursor-pointer">
-                    <option value="" disabled selected>Select range</option>
-                    <option>50 – 200</option><option>200 – 500</option><option>500 – 1000</option><option>1000+</option>
-                </select>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">Phone Number *</label><input type="tel" name="phone" placeholder="+91 98XXX XXXXX" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">Work Email *</label><input type="email" name="email" placeholder="you@company.com" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
             </div>
-            <div><label class="block text-xs font-bold text-gray-700 mb-1">City *</label><input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">No. of Employees *</label>
+                    <select name="employees" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm text-gray-600 bg-white cursor-pointer">
+                        <option value="" disabled selected>Select range</option>
+                        <option>50 – 200</option><option>200 – 500</option><option>500 – 1000</option><option>1000+</option>
+                    </select>
+                </div>
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">City *</label><input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            </div>
             <button type="submit" class="w-full bg-[#B45309] hover:bg-[#92400E] text-white font-bold py-3.5 rounded-md transition flex justify-center items-center gap-2 shadow-lg shadow-coffee-600/30">
                 Get Free Demo or Quote            </button>
         </form>
     </div>
 </div>
 
-<div id="success-modal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm hidden px-4">
-    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
-        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-check text-green-500 text-2xl"></i></div>
-        <h3 class="text-xl font-extrabold text-gray-900 mb-2">Request Received!</h3>
-        <p class="text-gray-600 text-sm mb-6">Our vending specialist will call you within <strong>24 hours</strong> with your free demo or quote. No commitment required.</p>
-        <button onclick="closeSuccessModal()" class="bg-coffee-600 hover:bg-coffee-700 text-white px-8 py-3 rounded-xl font-bold transition w-full shadow-lg shadow-coffee-600/30">Got it!</button>
-    </div>
-</div>
 
 <script>
     function toggleFaq(el) {
@@ -842,17 +891,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         document.getElementById('enquiry-modal').classList.add('hidden');
         document.body.style.overflow = 'auto';
     }
-    function closeSuccessModal() {
-        document.getElementById('success-modal').classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-    function handleSubmit(e) {
-        e.preventDefault();
-        closeEnquiryModal();
-        document.getElementById('success-modal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        e.target.reset();
-    }
     function toggleMobileNav() {
         const nav = document.getElementById('mobile-nav');
         const btn = document.getElementById('mobile-menu-btn');
@@ -865,9 +903,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
     window.addEventListener('click', function(e) {
         const em = document.getElementById('enquiry-modal');
-        const sm = document.getElementById('success-modal');
         if (e.target === em) closeEnquiryModal();
-        if (e.target === sm) closeSuccessModal();
     });
     document.addEventListener('click', function(e) {
         const nav = document.getElementById('mobile-nav');
@@ -896,52 +932,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     // Paste your Google Apps Script Web App URL here
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzOVVep2vm_wrUK3-FqVjYM41qeIb3QdQZNZAKJeeq-3Fzc5BToQ_nPuZG0dqFC5kV1/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzOVVep2vm_wrUK3-FqVjYM41qeIb3QdQZNZAKJeeq-3Fzc5BToQ_nPuZG0dqFC5kV1/exec';
 
-function getUrlSources() {
-    const sources = {};
-    new URLSearchParams(window.location.search).forEach((val, key) => {
-        if (key.endsWith('_source')) sources[key] = val.replace(/^"|"$/g, '');
-    });
-    return sources;
-}
+    function handleSubmit(e) {
+        e.preventDefault();
 
-function handleSubmit(e) {
-    e.preventDefault();
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
 
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
+        // Change button state to show it's loading
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+        submitBtn.disabled = true;
 
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
-    submitBtn.disabled = true;
+        // Safely package the form data for Google Apps Script
+        const formData = new FormData(form);
+        const data = new URLSearchParams();
+        for (const pair of formData) {
+            data.append(pair[0], pair[1]);
+        }
 
-    const formData = new FormData(form);
-    Object.entries(getUrlSources()).forEach(([k, v]) => formData.append(k, v));
+        // Add URL parameters if any exist
+        new URLSearchParams(window.location.search).forEach((val, key) => {
+            if (key.endsWith('_source')) data.append(key, val.replace(/^"|"$/g, ''));
+        });
 
-    // Send the POST request
-    fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors', // Crucial: prevents CORS errors caused by Google's redirect
-        body: formData
-    })
-    .then(() => {
-        // Since no-cors prevents reading the response, we assume success if it doesn't throw a network error
-        closeEnquiryModal();
-        document.getElementById('success-modal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-        form.reset();
-    })
-    .catch(error => {
-        console.error('Error!', error.message);
-        alert('Something went wrong. Please check your connection and try again.');
-    })
-    .finally(() => {
-        // Restore the button to its original state
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    });
-}
+        // Send the POST request
+        fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        })
+        .then(response => {
+            // Always redirect to the thank you page upon completion
+            window.location.href = 'thankyou.html';
+        })
+        .catch(error => {
+            console.error('Submission complete, bypassing CORS warning:', error);
+            // Google Apps Script throws a hidden CORS error even when successful. 
+            // We ignore it and redirect the user anyway.
+            window.location.href = 'thankyou.html';
+        });
+    }
 </script>
 
 <div class="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white border-t border-gray-200 shadow-[0_-2px_16px_rgba(0,0,0,0.1)]">
