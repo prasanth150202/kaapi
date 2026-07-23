@@ -86,6 +86,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             body { padding-bottom:76px; }
             .faq-item { -webkit-tap-highlight-color:transparent; }
         }
+
+        .logo-responsive {
+    height: 70px;
+    transition: height 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .logo-responsive {
+        height: 80px;
+    }
+}
     </style>
 </head>
 <body class="antialiased bg-white text-gray-900 overflow-x-hidden">
@@ -102,7 +113,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <nav class="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-        <a href="#"><img src="../assets/kaapiStoplogo.png" alt="Kaapi Stop" class="h-11 object-contain"></a>
+        <a href="#"><img class="logo-responsive" src="../assets/kaapiStoplogo.png" alt="Kaapi Stop" class="h-11 object-contain"></a>
         <div class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-700">
             <a href="#problem"    class="hover:text-coffee-600 transition">The Problem</a>
             <a href="#machines"   class="hover:text-coffee-600 transition">Machines</a>
