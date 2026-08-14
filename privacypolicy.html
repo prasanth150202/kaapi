@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy – KaapiVend by Kaapi Stop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        coffee: {
+                            50:  '#FFF8F0',
+                            100: '#FEF0DC',
+                            200: '#FCD9A8',
+                            300: '#F9B96A',
+                            400: '#F59E0B',
+                            500: '#D97706',
+                            600: '#B45309',
+                            700: '#92400E',
+                            800: '#78350F',
+                            900: '#431407',
+                        }
+                    },
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .pulse-dot { animation: pulseDot 2s infinite; }
+        @keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.3)} }
+        .modal-scroll::-webkit-scrollbar { width:6px; }
+        .modal-scroll::-webkit-scrollbar-track { background:#f1f1f1; border-radius:8px; }
+        .modal-scroll::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:8px; }
+        .modal-scroll::-webkit-scrollbar-thumb:hover { background:#B45309; }
+        .ham-line { display:block; width:22px; height:2px; background:#374151; border-radius:2px; transition:all .3s ease; }
+        #mobile-menu-btn.is-open .ham-line:nth-child(1) { transform:translateY(8px) rotate(45deg); }
+        #mobile-menu-btn.is-open .ham-line:nth-child(2) { opacity:0; transform:scaleX(0); }
+        #mobile-menu-btn.is-open .ham-line:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
+        #mobile-nav { max-height:0; overflow:hidden; transition:max-height .35s cubic-bezier(0,1,0,1); }
+        #mobile-nav.is-open { max-height:500px; transition:max-height .4s ease; }
+        input:focus,select:focus,textarea:focus { outline:none; border-color:#B45309 !important; box-shadow:0 0 0 3px rgba(180,83,9,.18) !important; }
+    </style>
+</head>
+<body class="antialiased bg-white text-gray-900 overflow-x-hidden">
+
+<div class="ann-bar bg-coffee-900 text-white text-center py-2 px-4 text-xs sm:text-sm font-semibold tracking-wide leading-snug">
+    <span class="pulse-dot inline-block w-2 h-2 bg-green-400 rounded-full mr-2 align-middle"></span>
+    <span class="hidden sm:inline">Limited: Free 7-Day Trial Machine for Qualifying Companies</span>
+</div>
+
+<nav class="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+        <a href="index.html"><img src="../assets/kaapiStoplogo.png" alt="Kaapi Stop" class="h-20 object-contain"></a>
+        <div class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-700">
+            <a href="index.html#problem"    class="hover:text-coffee-600 transition">The Problem</a>
+            <a href="index.html#machines"   class="hover:text-coffee-600 transition">Machines</a>
+            <a href="index.html#calculator" class="hover:text-coffee-600 transition">Savings</a>
+            <a href="index.html#clients"    class="hover:text-coffee-600 transition">Clients</a>
+            <a href="index.html#faq"        class="hover:text-coffee-600 transition">FAQ</a>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="javascript:void(0)" onclick="openEnquiryModal()" class="hidden sm:block text-sm font-bold text-coffee-600 hover:text-coffee-800 transition">Get Free Demo or Quote</a>
+            <button id="mobile-menu-btn" onclick="toggleMobileNav()" aria-label="Toggle menu"
+                class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-gray-100 transition -mr-1">
+                <span class="ham-line"></span><span class="ham-line"></span><span class="ham-line"></span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div id="mobile-nav" class="md:hidden bg-white shadow-md border-b border-gray-100">
+    <div class="px-4 py-1">
+        <a href="index.html#problem"    class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">The Problem <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <a href="index.html#machines"   class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">Machines <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <a href="index.html#calculator" class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">Savings Calculator <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <a href="index.html#clients"    class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">Clients <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <a href="index.html#faq"        class="flex items-center justify-between py-3.5 text-gray-800 font-semibold border-b border-gray-100 text-sm hover:text-coffee-600 transition">FAQ <i class="fa-solid fa-chevron-right text-gray-300 text-xs"></i></a>
+        <div class="py-3">
+            <button onclick="openEnquiryModal();closeMobileNav();" class="w-full bg-coffee-600 hover:bg-coffee-700 text-white py-3 rounded-xl font-bold text-sm transition">
+                Get Free Demo or Quote
+            </button>
+        </div>
+    </div>
+</div>
+
+<section class="py-12 sm:py-16 px-4 sm:px-6 bg-[#FDFBF7]">
+    <div class="max-w-3xl mx-auto">
+        <div class="mb-10">
+            <span class="text-coffee-600 font-bold text-xs uppercase tracking-widest">Legal</span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-[#2C1208] mt-2 mb-3">Privacy Policy</h1>
+            <p class="text-gray-600 text-sm">Last Updated: 14 August 2026</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-10 space-y-8 text-sm sm:text-base leading-relaxed text-gray-700">
+            <p>KaapiVend is a brand of Naval Foods &amp; Beverages LLP. This Privacy Policy explains how we collect and use information through <a href="https://digital.kaapistop.com/" class="text-coffee-600 font-semibold hover:underline">https://digital.kaapistop.com/</a>.</p>
+
+            <div>
+                <h2 class="text-xl font-bold text-[#2C1208] mb-3">1. Information We Collect</h2>
+                <p class="mb-3">When you submit an enquiry or request a demo or quotation, we may collect:</p>
+                <ul class="list-disc list-inside space-y-1.5">
+                    <li>Name</li>
+                    <li>Company Name</li>
+                    <li>Phone Number</li>
+                    <li>Email</li>
+                    <li>Employee Count</li>
+                    <li>City</li>
+                </ul>
+                <p class="mt-3">We may also collect basic technical information such as IP address, browser/device details, pages visited, cookies, and advertising interaction data.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-[#2C1208] mb-3">2. How We Use Your Information</h2>
+                <p class="mb-3">We may use your information to:</p>
+                <ul class="list-disc list-inside space-y-1.5">
+                    <li>Respond to enquiries and requests.</li>
+                    <li>Provide demos, quotations, trials, and product information.</li>
+                    <li>Contact you by phone, email, WhatsApp, or SMS.</li>
+                    <li>Understand your business requirements.</li>
+                    <li>Improve our website, services, and marketing.</li>
+                    <li>Measure and optimise our advertising campaigns.</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-[#2C1208] mb-3">3. Google Ads &amp; Meta Ads</h2>
+                <p>We use Google Ads and Meta Ads for lead generation, advertising measurement, conversion tracking, and remarketing.</p>
+                <p class="mt-3">These platforms may use cookies, pixels, tags, or similar technologies to measure campaign performance and improve advertising. Their use of information is also governed by their respective privacy policies.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-[#2C1208] mb-3">4. Cookies</h2>
+                <p>Our website may use cookies and similar technologies for website functionality, analytics, advertising measurement, and remarketing.</p>
+                <p class="mt-3">You can manage or disable cookies through your browser settings. Some website features may not function properly if cookies are disabled.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-[#2C1208] mb-3">5. Sharing of Information</h2>
+                <p>We do not sell your personal information as a standalone database.</p>
+                <p class="mt-3">We may share information with authorised employees, service providers, advertising platforms, analytics providers, and other partners where required to operate our business, manage leads, provide services, or comply with applicable law.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-[#2C1208] mb-3">6. Data Security &amp; Retention</h2>
+                <p>We take reasonable measures to protect your information from unauthorised access, misuse, or disclosure.</p>
+                <p class="mt-3">We retain personal information only for as long as reasonably necessary for business, legal, regulatory, and operational purposes.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-[#2C1208] mb-3">7. Your Rights</h2>
+                <p>Subject to applicable law, you may request access, correction, deletion, or withdrawal of consent regarding your personal information.</p>
+                <p class="mt-3">To make a privacy-related request, contact us using the details below.</p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-[#2C1208] mb-3">8. Contact Us</h2>
+                <p class="font-semibold text-gray-900">Naval Foods &amp; Beverages LLP</p>
+                <p>No. 43–45, SIDCO Industrial Estate, Five Roads,<br>Salem – 636004, Tamil Nadu, India</p>
+                <p class="mt-2">Email: <a href="mailto:b2bsales@kaapistop.com" class="text-coffee-600 font-semibold hover:underline">b2bsales@kaapistop.com</a></p>
+                <p>Phone: <a href="tel:+918925711299" class="text-coffee-600 font-semibold hover:underline">+91 89257 11299</a></p>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-[#2C1208] mb-3">9. Updates</h2>
+                <p>We may update this Privacy Policy from time to time. Any changes will be published on this page with the revised effective date.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-gray-950 text-gray-400 py-10 sm:py-12 md:py-14 px-4">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 mb-10">
+            <div>
+                <img src="../assets/kaapiStoplogo.png" alt="Kaapi Stop" class="h-11 object-contain brightness-[3] mb-4">
+                <p class="text-xs font-bold text-coffee-400 mb-2">KaapiVend by Kaapi Stop</p>
+                <p class="text-sm leading-relaxed text-gray-500 max-w-xs">Naval Foods &amp; Beverages LLP — estate-to-cup coffee vending partner for businesses across Tamil Nadu.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-xs uppercase tracking-widest">Quick Links</h4>
+                <ul class="space-y-2 text-sm text-gray-500">
+                    <li><a href="index.html#problem"    class="hover:text-coffee-400 transition">The Problem</a></li>
+                    <li><a href="index.html#machines"   class="hover:text-coffee-400 transition">Machine Lineup</a></li>
+                    <li><a href="index.html#calculator" class="hover:text-coffee-400 transition">Savings Calculator</a></li>
+                    <li><a href="index.html#why-us"     class="hover:text-coffee-400 transition">Why KaapiVend</a></li>
+                    <li><a href="index.html#faq"        class="hover:text-coffee-400 transition">FAQ</a></li>
+                    <li><a href="javascript:void(0)" onclick="openEnquiryModal()" class="hover:text-coffee-400 transition">Get Free Demo or Quote</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-xs uppercase tracking-widest">Policy</h4>
+                <ul class="space-y-2 text-sm text-gray-500">
+                    <li><a href="privacypolicy.html" class="hover:text-coffee-400 transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-5 text-xs uppercase tracking-widest">Contact Us</h4>
+                <ul class="space-y-3 text-sm text-gray-500">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-phone text-coffee-600 w-4 text-center"></i><a href="tel:+918925711299" class="hover:text-coffee-400">+91 89257 11299</a></li>
+                    <li class="flex items-center gap-3"><i class="fa-brands fa-whatsapp text-coffee-600 w-4 text-center"></i><a href="https://wa.me/918925711299" class="hover:text-coffee-400">WhatsApp Us</a></li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-envelope text-coffee-600 w-4 text-center"></i><a href="mailto:b2bsales@kaapistop.com" class="hover:text-coffee-400">b2bsales@kaapistop.com</a></li>
+                    <li class="flex items-start gap-3"><i class="fa-solid fa-location-dot text-coffee-600 w-4 text-center mt-0.5"></i><span>No. 43–45, SIDCO Industrial Estate, Five Roads, Salem – 636004</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between gap-2 text-xs text-gray-600">
+            <p>© 2025 Naval Foods &amp; Beverages LLP. All rights reserved.</p>
+            <p><a href="privacypolicy.html" class="hover:text-gray-400">Privacy Policy</a></p>
+        </div>
+    </div>
+</footer>
+
+<div id="enquiry-modal" class="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm hidden px-0 sm:px-4">
+    <div class="bg-white rounded-t-2xl sm:rounded-2xl p-6 sm:p-8 max-w-lg w-full relative shadow-2xl max-h-[90vh] overflow-y-auto modal-scroll">
+        <button onclick="closeEnquiryModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition"><i class="fa-solid fa-xmark"></i></button>
+        <div class="text-center mb-6 mt-2">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 mb-1">Get Free Demo or Quote</h2>
+            <p class="text-xs text-gray-500 font-medium">Specialist calls back within <span class="font-bold text-gray-800">24 hours</span></p>
+        </div>
+        <form onsubmit="handleSubmit(event)" class="space-y-3">
+            <div class="grid grid-cols-2 gap-3">
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">Your Name *</label><input type="text" name="name" placeholder="Ramesh Kumar" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+                <div><label class="block text-xs font-bold text-gray-700 mb-1">Designation *</label><input type="text" name="designation" placeholder="HR Manager" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            </div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">Company Name *</label><input type="text" name="company" placeholder="Acme Industries Pvt. Ltd." required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">Phone Number *</label><input type="tel" name="phone" placeholder="+91 98XXX XXXXX" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">No. of Employees *</label>
+                <select name="employees" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm text-gray-600 bg-white cursor-pointer">
+                    <option value="" disabled selected>Select range</option>
+                    <option>50 – 200</option><option>200 – 500</option><option>500 – 1000</option><option>1000+</option>
+                </select>
+            </div>
+            <div><label class="block text-xs font-bold text-gray-700 mb-1">City *</label><input type="text" name="city" placeholder="Salem, Tamil Nadu" required class="w-full px-3 py-2.5 rounded-md border border-gray-300 text-sm"></div>
+            <button type="submit" class="w-full bg-[#B45309] hover:bg-[#92400E] text-white font-bold py-3.5 rounded-md transition flex justify-center items-center gap-2 shadow-lg shadow-coffee-600/30">
+                Get Free Demo or Quote            </button>
+        </form>
+    </div>
+</div>
+
+<div id="success-modal" class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm hidden px-4">
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fa-solid fa-check text-green-500 text-2xl"></i></div>
+        <h3 class="text-xl font-extrabold text-gray-900 mb-2">Request Received!</h3>
+        <p class="text-gray-600 text-sm mb-6">Our vending specialist will call you within <strong>24 hours</strong> with your free demo or quote. No commitment required.</p>
+        <button onclick="closeSuccessModal()" class="bg-coffee-600 hover:bg-coffee-700 text-white px-8 py-3 rounded-xl font-bold transition w-full shadow-lg shadow-coffee-600/30">Got it!</button>
+    </div>
+</div>
+
+<script>
+    function openEnquiryModal() {
+        document.getElementById('enquiry-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeEnquiryModal() {
+        document.getElementById('enquiry-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+    function closeSuccessModal() {
+        document.getElementById('success-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+    function handleSubmit(e) {
+        e.preventDefault();
+        closeEnquiryModal();
+        document.getElementById('success-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        e.target.reset();
+    }
+    function toggleMobileNav() {
+        const nav = document.getElementById('mobile-nav');
+        const btn = document.getElementById('mobile-menu-btn');
+        const isOpen = nav.classList.toggle('is-open');
+        btn.classList.toggle('is-open', isOpen);
+    }
+    function closeMobileNav() {
+        document.getElementById('mobile-nav').classList.remove('is-open');
+        document.getElementById('mobile-menu-btn').classList.remove('is-open');
+    }
+    window.addEventListener('click', function(e) {
+        const em = document.getElementById('enquiry-modal');
+        const sm = document.getElementById('success-modal');
+        if (e.target === em) closeEnquiryModal();
+        if (e.target === sm) closeSuccessModal();
+    });
+    document.addEventListener('click', function(e) {
+        const nav = document.getElementById('mobile-nav');
+        const btn = document.getElementById('mobile-menu-btn');
+        if (nav.classList.contains('is-open') && !nav.contains(e.target) && !btn.contains(e.target)) closeMobileNav();
+    });
+</script>
+
+</body>
+</html>
